@@ -1,0 +1,239 @@
+
+
+
+/* LAYOUT */
+
+/* NAVBAR */
+
+/* items */
+.navbar-link:hover{
+    text-decoration: underline;
+
+}
+
+/* carrito */
+.icon-cart{
+    font-size: 1.3rem;
+    cursor: pointer;
+    color: black;
+}
+
+/* button iniciar sesion */
+.form-nav{
+    width: 553px;
+}
+
+
+.btn-gradient {
+    background: linear-gradient(to bottom right, #7c3aed, #3b82f6);
+    border: none;
+    color: white;
+    
+}
+.btn-gradient:hover {
+    background: linear-gradient(to bottom left, #7c3aed, #3b82f6);
+}
+.btn-gradient:focus {
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.5); /* azul translúcido */
+}
+
+/* HERO SECTION */
+.hero-section{
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e)
+}
+
+/* INDEX VIEW */
+
+/* Section libros destacados */
+.badge-section-primary{
+    background-color: #dbeafe;
+    color: #2563eb;
+    padding: 7px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+/* card */
+.bd-placeholder-img{
+    object-fit: cover;
+    height: 256px;
+}
+.text-green{
+    color: #16a34a;
+}
+
+.btn-card{
+    padding: 10px 20px; 
+    width: 250px;
+    font-weight: 600;
+}
+
+.badge-section-secondary{
+    background-color: #e2e4e8;
+    color: #655563;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 11px
+}
+
+/* card category */
+.image-container {
+  position: relative;
+}
+.image-container img {
+  width: 100%;
+  display: block;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+   /* Negro con 40% de opacidad */
+  pointer-events: none; /* para que no bloquee clics */
+}
+
+.image-overlay-purple{
+    background-color: #b74da28f;
+}
+ 
+.btn-black{
+    background-color: #0f0c29;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+.btn-black:hover{
+    background: linear-gradient(to bottom left, #7c3aed, #3b82f6);
+}
+
+.btn-black:focus {
+    box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.5); /* azul translúcido */
+}
+
+.badge-section-white{
+    background-color: #ffffff57;
+    color: #ffffff;
+    padding: 4px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+
+/* FOOTER */
+.footer{
+    background-color: #111827;
+}
+
+/* SIDEBAR */
+.nav-link-sidebar{
+    padding: 5px;
+}
+
+
+
+/* UTILIDADES */
+/* Colors */
+.icono-cart:hover{
+    cursor: pointer;
+    color: blue;
+}
+
+/* Width */
+.min-width-8{
+    min-width: 8rem;
+}
+
+.w-24{
+    width: 24px;
+}
+/* 370px */
+.w-37{
+    width: 370px;
+}
+
+/* 418px */
+.w-40{
+    width: 418px;
+}
+/* 300px */
+.w-30{
+    width: 300px;
+}
+
+/* Height */
+.height-100{
+    height: 100vh;
+}
+
+/* MARGIN */
+.mt-10{
+    margin-top: 6rem;
+}
+
+
+/* font size */
+.font-10{
+    font-size: 10px;
+}
+
+/* text */
+.gradient-text {
+    background: linear-gradient(to bottom right, #7c3aed, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text; /* Para algunos navegadores */
+    color: transparent;
+    /* text-decoration-color: black; */
+
+}
+.text-whit{
+    color: white;
+}
+
+.text-blue-bold{
+    color: #012974;
+    text-decoration: none;
+}
+
+.text-purple{
+    color: #9333ea;
+}
+
+.nav-brand{
+    font-weight: 700;
+}
+
+/* Badgeds */
+.badge-section-purple{
+    background-color: #ede0fa;
+    color: #9354ef;
+    padding: 5px 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px
+}
+
+/* Tables */
+.custom-thead th{
+    background-color: #157347 !important;
+}
+
+
+/* Colors */
+
+.backg-white{
+    background-color: #ffffff;
+}
+.backg-white-100{
+    background-color: #f6f9ff;
+}
+
+/* HELPERS */
+.nav-item:hover{
+    background-color: #e7eeff;
+    border-radius: 5px;
+}
