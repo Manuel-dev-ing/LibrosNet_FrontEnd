@@ -12,7 +12,6 @@ type AutorAPI = {
 }
 
 export async function getAutors() {
-    
     try {
         
         const {data} = await api('/autores');
@@ -20,7 +19,6 @@ export async function getAutors() {
 
         if (response.success) {
             return response.data
-            
         }
         
     } catch (error) {

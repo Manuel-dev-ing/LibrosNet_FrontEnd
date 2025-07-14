@@ -37,9 +37,9 @@ export default function AdminLayout() {
                         </li>
                         <li className="nav-item p-2 d-flex gap-3 align-items-center">
                             <LayoutGrid size={20} color="#012974" />
-                            <a href="#" className="nav-link-sidebar text-blue-bold fw-semibold">
+                            <Link to={'/administracion/categorias'} className="nav-link-sidebar text-blue-bold fw-semibold">
                             Categorias
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item p-2 d-flex gap-3 align-items-center">
                             <Newspaper size={20} color="#012974" />

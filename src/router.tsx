@@ -7,6 +7,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import AdminIndexView from "./views/admin/AdminIndexView";
 import AutoresView from "./views/admin/AutoresView";
 import './index.css';
+import CategoriasView from "./views/admin/CategoriasView";
 
 export default function Router() {
   
@@ -27,6 +28,7 @@ export default function Router() {
                 <Route element={<AdminLayout />}>
                     <Route path="/administracion" element={<AdminIndexView />} />
                     <Route path="/administracion/autores" element={<AutoresView />} />
+                    <Route path="/administracion/categorias" element={<CategoriasView />} />
 
                 </Route>    
 

@@ -19,7 +19,7 @@ const initialValues: AutorFormData = {
 
 export default function EditAutorModal() {
 
-    const autores = useLibrosStore((state) => state.data)
+    const autores = useLibrosStore((state) => state.data as AutorFormData)
     const activeId = useLibrosStore((state) => state.activeId)
     const resetAutor = useLibrosStore((state) => state.reset)
 
