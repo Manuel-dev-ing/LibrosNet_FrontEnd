@@ -1,12 +1,11 @@
 
-import React, { use, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import ErrorMessage from '../../ErrorMessage';
 import { useLibrosStore } from '../../../store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { editCategory } from '../../../services/CategoriaAPI';
 import { toast } from 'react-toastify';
-import { data } from 'react-router-dom';
 import type { CategoryFormData } from '../../../types';
 import { Modal } from 'bootstrap';
 

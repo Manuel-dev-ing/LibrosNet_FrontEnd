@@ -44,9 +44,9 @@ export default function AdminLayout() {
                         <li className="nav-item p-2 d-flex gap-3 align-items-center">
                             <Newspaper size={20} color="#012974" />
 
-                            <a href="#" className="nav-link-sidebar text-blue-bold fw-semibold">
+                            <Link to={'/administracion/editoriales'} className="nav-link-sidebar text-blue-bold fw-semibold">
                             Editoriales
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item p-2 d-flex gap-3 align-items-center">
                             <BookCopy size={20} color="#012974" />

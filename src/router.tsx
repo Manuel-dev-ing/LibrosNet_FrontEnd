@@ -8,10 +8,9 @@ import AdminIndexView from "./views/admin/AdminIndexView";
 import AutoresView from "./views/admin/AutoresView";
 import './index.css';
 import CategoriasView from "./views/admin/CategoriasView";
+import EditorialesView from "./views/admin/EditorialesView";
 
 export default function Router() {
-  
-  
   
     return (
         <BrowserRouter>
@@ -29,6 +28,7 @@ export default function Router() {
                     <Route path="/administracion" element={<AdminIndexView />} />
                     <Route path="/administracion/autores" element={<AutoresView />} />
                     <Route path="/administracion/categorias" element={<CategoriasView />} />
+                    <Route path="/administracion/editoriales" element={<EditorialesView />} />
 
                 </Route>    
 
