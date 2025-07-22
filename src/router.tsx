@@ -9,6 +9,9 @@ import AutoresView from "./views/admin/AutoresView";
 import './index.css';
 import CategoriasView from "./views/admin/CategoriasView";
 import EditorialesView from "./views/admin/EditorialesView";
+import LibrosView from "./views/admin/LibrosView";
+import LibrosCreacionView from "./views/admin/libros/LibrosCreacionView";
+import LibrosEditarViewModel from "./views/admin/libros/LibrosEditarViewModel";
 
 export default function Router() {
   
@@ -21,7 +24,6 @@ export default function Router() {
 
                 <Route element={<AppLayout />}>
                     <Route path="/libros" element={<CatalogoView />} />
-
                 </Route>
 
                 <Route element={<AdminLayout />}>
@@ -29,7 +31,9 @@ export default function Router() {
                     <Route path="/administracion/autores" element={<AutoresView />} />
                     <Route path="/administracion/categorias" element={<CategoriasView />} />
                     <Route path="/administracion/editoriales" element={<EditorialesView />} />
-
+                    <Route path="/administracion/libros" element={<LibrosView />} />
+                    <Route path="/administracion/libros/crear" element={<LibrosCreacionView />} />
+                    <Route path="/administracion/libros/editar" element={<LibrosEditarViewModel />} />
                 </Route>    
 
             </Routes>

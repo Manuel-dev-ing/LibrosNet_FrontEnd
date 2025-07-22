@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import type { Autor, AutorFormData, Categoria, CategoryFormData, editorial, EditorialFormData } from "./types";
+import type { Autor, AutorFormData, Categoria, CategoryFormData, editorial, EditorialFormData, Libro } from "./types";
 
 type LibrosStore = {
-    data: AutorFormData | CategoryFormData | EditorialFormData
-    set: (formData: Autor | Categoria | editorial) => void
-    reset: (formData: AutorFormData | CategoryFormData) => void
+    data: AutorFormData | CategoryFormData | EditorialFormData | Libro
+    set: (formData: Autor | Categoria | editorial | Libro) => void
+    reset: (formData: AutorFormData | CategoryFormData | Libro) => void
     activeId: number
 }
 

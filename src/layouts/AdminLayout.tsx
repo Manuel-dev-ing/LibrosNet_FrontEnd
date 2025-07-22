@@ -29,38 +29,38 @@ export default function AdminLayout() {
                     <div className="bg-white shadow w-30 d-flex flex-column p-3">
                        
                         <ul className="nav flex-column mb-auto">
-                        <li className="nav-item p-2 mt-5 d-flex gap-3 align-items-center">
-                            <Contact size={20} color="#012974" />
+                            <Link to={'/administracion/autores'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 mt-5 d-flex gap-3 align-items-center">
+                                <Contact size={20} color="#012974" />
 
-                            <Link className="nav-link-sidebar text-blue-bold fw-semibold" to={'/administracion/autores'} >Autores</Link>
-                            
-                        </li>
-                        <li className="nav-item p-2 d-flex gap-3 align-items-center">
-                            <LayoutGrid size={20} color="#012974" />
-                            <Link to={'/administracion/categorias'} className="nav-link-sidebar text-blue-bold fw-semibold">
-                            Categorias
+                                <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">Autores</p>
+                                
                             </Link>
-                        </li>
-                        <li className="nav-item p-2 d-flex gap-3 align-items-center">
-                            <Newspaper size={20} color="#012974" />
-
-                            <Link to={'/administracion/editoriales'} className="nav-link-sidebar text-blue-bold fw-semibold">
-                            Editoriales
+                            <Link to={'/administracion/categorias'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 d-flex gap-3 align-items-center">
+                                <LayoutGrid size={20} color="#012974" />
+                                <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">
+                                Categorias
+                                </p>
                             </Link>
-                        </li>
-                        <li className="nav-item p-2 d-flex gap-3 align-items-center">
-                            <BookCopy size={20} color="#012974" />
-                            <a href="#" className="nav-link-sidebar text-blue-bold fw-semibold">
-                            Libros
-                            </a>
-                        </li>
-                        <li className="nav-item p-2 d-flex gap-3 align-items-center">
-                            <Users size={20} color="#012974" />
+                            <Link to={'/administracion/editoriales'} className="link nav-link-sidebar text-blue-bold fw-semibold nav-item p-2 d-flex gap-3 align-items-center">
+                                <Newspaper size={20} color="#012974" />
 
-                            <a href="#" className="nav-link-sidebar text-blue-bold fw-semibold">
-                            Usuarios
-                            </a>
-                        </li>
+                                <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">
+                                    Editoriales
+                                </p>
+                            </Link>
+                            <Link to={'/administracion/libros'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 d-flex gap-3 align-items-center">
+                                <BookCopy size={20} color="#012974" />
+                                <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">
+                                    Libros
+                                </p>
+                            </Link>
+                            <Link to={'/administracion/libros'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 d-flex gap-3 align-items-center">
+                                <Users size={20} color="#012974" />
+
+                                <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">
+                                Usuarios
+                                </p>
+                            </Link>
                         </ul>
                       
                     </div>

@@ -18,7 +18,7 @@ export async function getAutors() {
         const response = autorsShema.safeParse(data);
 
         if (response.success) {
-            return response.data
+            return response.data as Autor[]
         }
         
     } catch (error) {
