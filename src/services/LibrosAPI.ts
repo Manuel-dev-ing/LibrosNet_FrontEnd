@@ -30,6 +30,8 @@ export async function getBook(id : number) {
         
         if (response.success) {
             const { id, ...formData } = response.data
+            
+
             return formData
         }
 

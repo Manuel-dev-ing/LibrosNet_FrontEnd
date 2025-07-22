@@ -59,7 +59,7 @@ export default function LibrosEditarViewModel() {
                 sipnosis: data?.sipnosis,
                 idAutor: data?.idAutor.toString(),
                 idCategoria: data?.idCategoria.toString(),
-                idEditorial: data?.idCategoria.toString()
+                idEditorial: data?.idEditorial.toString()
             })
 
             setPreview(data?.portada!)
