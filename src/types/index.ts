@@ -17,6 +17,7 @@ const autorShema = z.object({
 const categoriaSchema = z.object({
   id: z.number(),
   nombre: z.string(),
+  descripcion: z.string().nullable(),
   estado: z.boolean(),
 });
 
@@ -112,7 +113,7 @@ export type Autor = z.infer<typeof autorShema>
 export type AutorFormData = Pick<Autor, 'nombre' | 'primerApellido' | 'segundoApellido' | 'telefono' | 'correo'>
 
 export type Categoria = z.infer<typeof categoriaSchema>
-export type CategoryFormData = Pick<Categoria, 'nombre'>
+export type CategoryFormData = Pick<Categoria, 'nombre' | 'descripcion'>
 
 export type editorial = z.infer<typeof editorialSchema> 
 export type EditorialFormData = Pick<editorial, 'nombre' | 'correo' | 'telefono' | 'calle' | 'numero' | 'colonia' | 'ciudad' | 'estado' | 'codigoPostal'>
@@ -120,6 +121,11 @@ export type EditorialFormData = Pick<editorial, 'nombre' | 'correo' | 'telefono'
 export type Libro = z.infer<typeof libroShema>
 export type LibroFormData = z.infer<typeof libroCreacionSchema> // incluye la portada
 export type LibroEdicionFormData = z.infer<typeof libroEdicionSchema> //no incluye la portada
+
+export type Alerta = {
+  isSuccess: boolean
+  mensaje: string
+}
 
 // export type LibroData = z.infer<typeof obtenerLibro>
 
