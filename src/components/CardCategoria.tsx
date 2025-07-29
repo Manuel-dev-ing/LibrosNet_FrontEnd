@@ -1,7 +1,16 @@
 import { ArrowRight } from 'lucide-react'
 import React from 'react'
+import type { Categoria } from '../types'
 
-export default function CardCategoria() {
+type CardCategoriaProps = {
+  categoria: Categoria,
+  overlayStyle: string
+}
+
+export default function CardCategoria({categoria, overlayStyle} : CardCategoriaProps) {
+
+  
+
   return (
     <div className="card shadow w-40 rounded-top-4">
 
@@ -11,9 +20,9 @@ export default function CardCategoria() {
             src="../../public/img/card-image.jpg"
             alt="Imagen categoria"
             />
-            <div className="image-overlay image-overlay-purple d-flex flex-column align-items-center justify-content-center rounded-top-4">
+            <div className={`image-overlay ${overlayStyle} d-flex flex-column align-items-center justify-content-center rounded-top-4`}>
 
-                <p className='text-white fs-4 fw-bold'>Ficcion</p>
+                <p className='text-white fs-4 fw-bold'>{categoria.nombre}</p>
                 <span className='badge-section-white'>2,352 libros</span>
 
             </div>
@@ -21,7 +30,7 @@ export default function CardCategoria() {
         
         <div className="card-body">
             
-            <p className="text-start fs-6 my-3">Novelas y cuentos que transportan a mundos imaginarios</p>
+            <p className="text-start fs-6 my-3">{categoria.descripcion}</p>
 
             <button className="w-37 rounded btn-black rounded-4 d-flex justify-content-center align-items-center gap-2 fs-6">Explorar Categoria <ArrowRight size={20} /> </button>
         </div>

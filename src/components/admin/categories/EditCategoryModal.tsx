@@ -6,16 +6,17 @@ import { useLibrosStore } from '../../../store';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { editCategory } from '../../../services/CategoriaAPI';
 import { toast } from 'react-toastify';
-import type { CategoryFormData } from '../../../types';
+import type { Categoria, CategoryFormData } from '../../../types';
 import { Modal } from 'bootstrap';
 
 const initialValues : CategoryFormData = {
-    nombre: ''
+    nombre: '',
+    descripcion: ''
 }
 
 export default function EditCategoryModal() {
 
-    const category = useLibrosStore((state) => state.data)
+    const category = useLibrosStore((state) => state.data as Categoria)
     const activeId = useLibrosStore( (state) => state.activeId )
     const resetCategory = useLibrosStore( (state) => state.reset )
 
@@ -25,7 +26,8 @@ export default function EditCategoryModal() {
     useEffect(() => {
         if (activeId) {
             reset({
-                nombre: category.nombre
+                nombre: category.nombre,
+                descripcion: category.descripcion
             })
         }
     }, [category, activeId])
@@ -92,9 +94,21 @@ export default function EditCategoryModal() {
 
                                 )}
                             </div>
+                            <div className="mb-3">
+                                <label htmlFor="descripcion" className="fw-semibold col-form-label">Descripcion</label>
+                                <textarea className="form-control" id="descripcion"
+                                    {...register("descripcion", {
+                                        required: "La Descripcion de la Categoria es obligatoria",
+                                    })} 
+                                />
+                                {errors.descripcion && (
+                                    <ErrorMessage>{errors.descripcion.message}</ErrorMessage>
+    
+                                )}
+                            </div>
                         
                             <div className='d-flex justify-content-end'>
-                                <button type="submit" className="mt-3 btn btn-outline-primary">Save Changes</button>
+                                <button type="submit" className="mt-3 btn btn-outline-primary">Guardar Cambios</button>
 
                             </div>
                         </form>

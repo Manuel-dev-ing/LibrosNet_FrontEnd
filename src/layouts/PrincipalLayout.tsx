@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HeroSection from "../components/HeroSection";
+import { ToastContainer } from "react-toastify";
 
 export default function PrincipalLayout() {
   return (
@@ -14,6 +15,11 @@ export default function PrincipalLayout() {
         </div>
        
         <Footer />
+
+        <ToastContainer 
+          pauseOnHover={false}
+          pauseOnFocusLoss={false}
+        />
     </>
   )
 }

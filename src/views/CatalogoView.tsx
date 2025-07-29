@@ -1,7 +1,17 @@
 import React from 'react'
 import Card from '../components/Card'
+import { useQuery } from '@tanstack/react-query';
+import { getBooks } from '../services/LibrosAPI';
+import CardProduct from '../components/CardProduct';
 
 export default function CatalogoView() {
+    const { data, isLoading } = useQuery({
+        queryFn: getBooks,
+        queryKey: ['libros']
+    })
+
+    if (isLoading) return  "Obteniendo libros...";
+
   return (
     <>
         <div className="col-lg-8 col-md-8 mx-auto mt-4 ">
@@ -15,8 +25,8 @@ export default function CatalogoView() {
 
             </div>
         </div>
-        <section className='container-fluid  p-0 d-flex justify-content-between mb-5 mt-5 '>
-            <div className='d-flex flex-column gap-3 col-3'>
+        <section className='container-fluid row p-0 d-flex justify-content-between mb-5 mt-5'>
+            <div className='row d-flex flex-column gap-3 col-3'>
                 
                 <div className='border shadow-sm bg-white p-4 rounded-3'>
                     <p className='fs-6 fw-semibold'>Ordenar Por</p>
@@ -71,20 +81,22 @@ export default function CatalogoView() {
 
 
             </div>
-            <div className='border col-8 '>
-                <div className='row row-cols-3'>
-                    <div className="col py-3">
-                        <Card />
-                    </div>
-                    <div className="col py-3">
-                        <Card />
-                    </div>
-                    <div className="col py-3">
-                        <Card />
-                    </div>
-                    <div className="col py-3">
-                        <Card />
-                    </div>
+            <div className='col-9 p-0'>
+                <div className='d-flex justify-content-start flex-wrap gap-4'>
+                    { data?.length && (
+                        <>
+                        {data.slice(0, 4).map((libro) => (
+                            
+                            <CardProduct  
+                                libro={libro}
+                            />
+                            
+                            
+                        ))}
+                    
+                        </>
+                        
+                    )}
                 </div>
 
             </div>

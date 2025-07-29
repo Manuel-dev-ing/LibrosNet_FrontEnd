@@ -1,8 +1,33 @@
+import { useQuery } from "@tanstack/react-query";
 import Card from "../components/Card";
 import CardCategoria from "../components/CardCategoria";
+import { getBooks } from "../services/LibrosAPI";
+import { getCategories } from "../services/CategoriaAPI";
+
+
+const overlayStyles : { [key: number] : string } = {
+    1: 'image-overlay-purple',
+    2: 'image-overlay-blue',
+    3: 'image-overlay-green',
+    4: 'image-overlay-red',
+    6: 'image-overlay-yellow',
+    8: 'image-overlay-pink'
+}
 
 export default function IndexView() {
+    const { data, isLoading } = useQuery({
+        queryFn: getBooks,
+        queryKey: ['libros']
+    })
 
+    const { data: Categorias, isLoading: isLoadingCategorias } = useQuery({
+        queryFn: getCategories,
+        queryKey: ['categorias']
+    })
+
+    if (isLoading) return  "Obteniendo libros...";
+    if (isLoadingCategorias) return  "Obteniendo categorias...";
+    
   return (
     <>
       <section className="py-5 text-center border">
@@ -16,19 +41,22 @@ export default function IndexView() {
             
           </div>
         </div>
-        <div className="border d-flex gap-3 container justify-content-center">
-          <div className="col-3">
-            <Card />
-          </div>
-          <div className="col-3">
-            <Card />
-          </div>
-          <div className="col-3">
-            <Card />
-          </div>
-          <div className="col-3">
-            <Card />
-          </div>
+        <div className="d-flex gap-3 container justify-content-center">
+          { data?.length && (
+            <>
+              {data.slice(0, 4).map((libro) => (
+                <div key={libro.id} className="col-3">
+                  <Card 
+                    libro={libro}
+                  />
+                </div>
+                
+              ))}
+          
+            </>
+           
+          )}
+          
         </div>
       </section>
 
@@ -45,25 +73,19 @@ export default function IndexView() {
           </div>
         </div>
         <div className="border row row-cols-3 container-fluid">
-          <div className="col py-3">
-            <CardCategoria />
-          </div>
-          <div className="col py-3">
-            <CardCategoria />
-          </div>
-          <div className="col py-3">
-            <CardCategoria />
-          </div>
-          <div className="col py-3">
-            <CardCategoria />
-          </div>
-          <div className="col py-3">
-            <CardCategoria />
-          </div>
-          <div className="col py-3">
-            <CardCategoria />
-          </div>
-
+          
+            {Categorias?.length && (
+              <>
+                {Categorias.slice(0, 6).map((categoria) => (
+                  <div key={categoria.id} className="col py-3">
+                      <CardCategoria
+                        categoria={categoria}
+                        overlayStyle={overlayStyles[categoria.id]}
+                      />
+                  </div>
+                ))}
+              </>
+            )}
         </div>
 
       </section>

@@ -9,7 +9,8 @@ import { Modal } from 'bootstrap';
 
 
 const initialValues : CategoryFormData = {
-    nombre: ""
+    nombre: "",
+    descripcion: ""
 }
 
 export default function AddCategoryModal() {
@@ -76,9 +77,22 @@ export default function AddCategoryModal() {
 
                             )}
                         </div>
+                        <div className="mb-3">
+                            <label htmlFor="descripcion" className="fw-semibold col-form-label">Descripcion</label>
+                            <textarea className="form-control" id="descripcion"
+                                {...register("descripcion", {
+                                    required: "La Descripcion de la Categoria es obligatoria",
+                                })} 
+                            />
+                            {errors.descripcion && (
+                                <ErrorMessage>{errors.descripcion.message}</ErrorMessage>
+
+                            )}
+                        </div>    
+
                     
                         <div className='d-flex justify-content-end'>
-                            <button type="submit" className="mt-3 btn btn-outline-primary">Save Changes</button>
+                            <button type="submit" className="mt-3 btn btn-outline-primary">Guardar</button>
 
                         </div>
                     </form>
