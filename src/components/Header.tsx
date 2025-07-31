@@ -3,8 +3,6 @@ import { useCarritoStore } from "../storeCarrito";
 
 export default function Header() {
     const cantidadItems = useCarritoStore((state) => state.carrito)
-    console.log(cantidadItems);
-    
 
   return (
         <header className="">

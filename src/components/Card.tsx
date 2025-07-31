@@ -1,12 +1,12 @@
 import { ShoppingCart } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Rating } from 'react-simple-star-rating'
-import type { Libro } from '../types'
+import type { Item, Libro } from '../types'
 import { useCarritoStore } from '../storeCarrito'
 import { toast } from 'react-toastify'
 
 type CardProps = {
-    libro: Libro
+    libro: Libro | Item
 }
 
 export default function Card({libro} : CardProps) {
@@ -18,24 +18,19 @@ export default function Card({libro} : CardProps) {
         setRating(rate)
         console.log("rating: ", rate);
     }
-    // useEffect(() => {
-        
 
-    // }, [isAlert])
 
-    const handleClick = (libro : Libro) => {
+    const handleClick = (libro: Item) => {
+        libro.cantidad = 1;
+
         const success = guardar(libro)
-        console.log(success);
+        // console.log(success);
         if (success.isSuccess) {
 
             toast.success(success.mensaje)
             return
         }
         toast.error(success.mensaje)
-
-        console.log('despues del if');
-        
-        
 
     }
 
@@ -59,7 +54,7 @@ export default function Card({libro} : CardProps) {
 
             <p className="text-start fs-3 text-green fw-bold">${libro.precio}</p>
 
-            <button className="btn-card rounded btn-gradient rounded-4 d-flex justify-content-center gap-2" onClick={()=> handleClick(libro)}> <ShoppingCart size={20} /> Añadir al Carrito</button>
+            <button className="btn-card rounded btn-gradient rounded-4 d-flex justify-content-center gap-2" onClick={()=> handleClick(libro as Item)}> <ShoppingCart size={20} /> Añadir al Carrito</button>
         </div>
     </div>
   )

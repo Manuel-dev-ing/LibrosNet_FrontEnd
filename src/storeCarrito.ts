@@ -1,18 +1,21 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import type { Alerta, Libro } from "./types";
-import { json } from "zod/v4";
-
+import type { Alerta, Item, Libro } from "./types";
 
 type CarritoStore = {
-    carrito: Libro[]
-    guardar: (item : Libro) => Alerta
+    carrito: Libro[] | Item[]
+    guardar: (item : Libro | Item) => Alerta
+    setCantidades: (cantidad: number, id: number) => void
+    eliminar: (id: number) => void
+    vaciarCarrito: () => void
 }
 const carrito = () => {
     const libros = localStorage.getItem('libros')
-    const libros_arr : Libro[] = libros ? JSON.parse(libros) : [] 
+    const libros_arr : Item[] = libros ? JSON.parse(libros) : [] 
     return libros_arr
 }
+
+
 
 export const useCarritoStore = create<CarritoStore>()(devtools((set, get) => ({
     carrito: carrito(),
@@ -34,10 +37,52 @@ export const useCarritoStore = create<CarritoStore>()(devtools((set, get) => ({
             }
         }
     },
+    setCantidades: (cantidad, id) => {
+        const itemExist = get().carrito.findIndex(item => item.id === id)
+        if(itemExist >= 0){
+            //ya existe
+            const cantidades_state = get().carrito.map((item) => {
+                if (item.id === id) {
+                    return {...item, cantidad: cantidad}
+                }
+                return item
+            })
+
+            set(()=>({
+                carrito: cantidades_state
+            }))
+            localStorage.setItem('libros', JSON.stringify(cantidades_state))
+
+        }else{//no existe
+
+            // set(() => ({
+            //     cantidades: [...get().cantidades, objCantidad]
+            // }))
+
+            // const cantidades = get().cantidades
+            // localStorage.setItem('cantidades', JSON.stringify(cantidades))
+        }
+    },
+    eliminar: (id) => {
+        console.log(get().carrito);
+
+        const carrito = get().carrito.filter(item => item.id !== id)
+        console.log(carrito);
+        set(()=>({
+            carrito: carrito
+        }))
+        localStorage.setItem('libros', JSON.stringify(carrito))
+    },
+    vaciarCarrito: () => {
+        set(()=>({
+            carrito: []
+        }))
+        localStorage.setItem('libros', JSON.stringify([]))
+        
+    }
 
 
-  
-    
+
 
 
 

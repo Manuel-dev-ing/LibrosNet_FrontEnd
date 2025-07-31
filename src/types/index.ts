@@ -109,6 +109,10 @@ export const editorialesSchema = z.array(editorialSchema);
 
 export const librosSchema = z.array(libroShema);
 
+export const itemSchema = libroShema.extend({
+  cantidad: z.number()
+})
+
 export type Autor = z.infer<typeof autorShema>
 export type AutorFormData = Pick<Autor, 'nombre' | 'primerApellido' | 'segundoApellido' | 'telefono' | 'correo'>
 
@@ -122,10 +126,11 @@ export type Libro = z.infer<typeof libroShema>
 export type LibroFormData = z.infer<typeof libroCreacionSchema> // incluye la portada
 export type LibroEdicionFormData = z.infer<typeof libroEdicionSchema> //no incluye la portada
 
+export type Item = z.infer<typeof itemSchema>
+
 export type Alerta = {
   isSuccess: boolean
   mensaje: string
 }
 
-// export type LibroData = z.infer<typeof obtenerLibro>
 
