@@ -48,7 +48,7 @@ export default function Items({libro} : ItemsProps) {
   return (
     <>
         <div className='d-flex gap-3 mb-2 bg-white p-4 rounded-2 border'>
-            <img className='rounded imagen-sm' src="../../public/img/card-image.jpg" alt={`Imagen ${libro.titulo}`}  />
+            <img className='rounded imagen-sm' src={libro.portada as string} alt={`Imagen ${libro.titulo}`}  />
             <div className='w-full'>
                 <div className='d-flex justify-content-between'>
                     <p className='m-0 fw-semibold fs-5'>{libro.titulo}</p>

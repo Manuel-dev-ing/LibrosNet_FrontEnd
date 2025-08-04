@@ -126,6 +126,7 @@ export type Libro = z.infer<typeof libroShema>
 export type LibroFormData = z.infer<typeof libroCreacionSchema> // incluye la portada
 export type LibroEdicionFormData = z.infer<typeof libroEdicionSchema> //no incluye la portada
 
+export type Libros = z.infer<typeof librosSchema>
 export type Item = z.infer<typeof itemSchema>
 
 export type Alerta = {

@@ -1,16 +1,92 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../services/LibrosAPI';
 import CardProduct from '../components/CardProduct';
+import { getCategories } from '../services/CategoriaAPI';
+import type { Libros } from '../types';
 
 export default function CatalogoView() {
+    const [Libros, setLibros] = useState<Libros>()
+    const [isSelect, setIsSelect] = useState<number>(1)
+    const [minimoNumero, setMinimoNumero] = useState<number>(0)
+    const [maximomoNumero, setMaximoNumero] = useState<number>(100)
+    const [buscar, setBuscar] = useState<string>("")
+
+    
     const { data, isLoading } = useQuery({
         queryFn: getBooks,
         queryKey: ['libros']
     })
 
-    if (isLoading) return  "Obteniendo libros...";
+    const { data: categorias, isLoading: isLoadingCategorias } = useQuery({
+        queryFn: getCategories,
+        queryKey: ['categorias']
+    })
+
+    useEffect(() => {
+        console.log("useEffect");
+        if (!data?.length) return;
+        
+        let ordenado = [...data]
+        if (isSelect === 1) {
+            // Menor a mayor
+            ordenado.sort((a, b) => a.precio - b.precio);
+
+        } else if (isSelect === 2){
+            // Mayor a menor
+            ordenado.sort((a, b) => b.precio - a.precio);
+        }
+        console.log(ordenado);
+        
+        setLibros(ordenado)
+        console.log("fin useEFFECT...");
+        
+
+    }, [data, isSelect])
+    
+    const handleClick = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+
+        const nombre_categoria = e.target.value
+        if (nombre_categoria === 'all') {
+            setLibros(data)
+            return 
+        }
+        const Libros = data?.filter(item => item.categoria === nombre_categoria)
+        setLibros(Libros)
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        console.log(e.target.value);
+        const opcion : number = Number(e.target.value)
+        console.log(opcion);
+        
+        setIsSelect(opcion)
+    }
+
+    const handleChangeMinimoPrecio = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setMinimoNumero(Number(e.target.value))
+    }
+
+    const handleChangeMaximoPrecio = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setMaximoNumero(Number(e.target.value))
+    }
+
+    const handleClickRangoPrecio = () => {
+
+        const resultado = [...data]?.filter( item => item.precio > minimoNumero && item.precio <= maximomoNumero)
+        setLibros(resultado)
+    }
+
+    const handleChangeBuscar = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setBuscar(e.target.value)
+        const valor = e.target.value
+        const resultado = data?.filter(item => item.titulo.includes(valor) || item.autor.includes(valor))
+        setLibros(resultado)
+        
+    }
+
+    if (isLoading || isLoadingCategorias) return  "Obteniendo datos...";
 
   return (
     <>
@@ -21,7 +97,7 @@ export default function CatalogoView() {
             </p>
             
             <div className='col-10 mx-auto'>
-                <input className='form-control p-3 shadow' type="text" placeholder='Buscar por titulo, autor'/>
+                <input className='form-control p-3 shadow' value={buscar} onChange={handleChangeBuscar} type="text" placeholder='Buscar por titulo, autor'/>
 
             </div>
         </div>
@@ -31,51 +107,47 @@ export default function CatalogoView() {
                 <div className='border shadow-sm bg-white p-4 rounded-3'>
                     <p className='fs-6 fw-semibold'>Ordenar Por</p>
 
-                    <select className="form-select" aria-label="Default select example">
-                        <option selected>Mejor Valorados</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select className="form-select" value={isSelect} onChange={handleChange}>
+                        <option value="1">Precio: Menor a Mayor</option>
+                        <option value="2">Precio: Mayor a Menor</option>
+                        
                     </select>
                 </div>
                 <div className='border shadow-sm bg-white p-4 rounded-3'>
-                        <p className='fs-6 fw-semibold'>Categorias</p>
+                    <p className='fs-6 fw-semibold'>Categorias</p>
+                    {categorias?.length && (
                         <div className="form-check mt-2">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-                            <label className="form-check-label" htmlFor="exampleRadios1">
-                            Todas las categorias
+                            <input className="form-check-input" type="radio" name="exampleRadios" id={`exampleRadioAll`} value="all" onClick={handleClick}/>
+                            <label className="form-check-label" htmlFor={`exampleRadioAll`}>
+                                Todas las categorias
                             </label>
                         </div>
-                        <div className="form-check mt-2">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" />
-                            <label className="form-check-label" htmlFor="exampleRadios3">
-                            Second default radio
-                            </label>
-                        </div>
-                        <div className="form-check mt-2">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4" />
-                            <label className="form-check-label" htmlFor="exampleRadios4">
-                            Second default radio
-                            </label>
-                        </div>
-                        <div className="form-check mt-2">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="option5" />
-                            <label className="form-check-label" htmlFor="exampleRadios5">
-                            Second default radio
-                            </label>
-                        </div>
-                        <div className="form-check mt-2">
-                            <input className="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="option6" />
-                            <label className="form-check-label" htmlFor="exampleRadios6">
-                            Second default radio
-                            </label>
-                        </div>
+                    )}
+
+                    {categorias?.length && (
                         
+                        categorias?.map((categoria) => (
+                            
+                            <div key={categoria.id} className="form-check mt-2">
+                                <input className="form-check-input" type="radio" name="exampleRadios" id={`exampleRadio${categoria.id}`} value={categoria.nombre} onClick={handleClick} />
+                                <label className="form-check-label" htmlFor={`exampleRadio${categoria.id}`}>
+                                    {categoria.nombre}
+                                </label>
+                            </div>
+                            
+                        ))
+                    )}
 
                 </div>
                 <div className='border shadow-sm bg-white p-4 rounded-3'>
                     <p className='fs-6 fw-semibold'>Rango de Precios</p>
+                    <div className='d-flex justify-content-between'>
+                        <input type="number" min={1} id='minimo' value={minimoNumero} onChange={handleChangeMinimoPrecio} className='col-3 p-1 rounded-2 border border-secondary' />
+                        -
+                        <input type="number" min={1} id='maximo' value={maximomoNumero} onChange={handleChangeMaximoPrecio} className='col-3 p-1 rounded-2 border border-secondary' />
 
+                        <button className='btn btn-sm btn-dark align-self-start' onClick={handleClickRangoPrecio}>Buscar</button>
+                    </div>
                     
                 </div>
 
@@ -85,14 +157,14 @@ export default function CatalogoView() {
                 <div className='d-flex justify-content-start flex-wrap gap-4'>
                     { data?.length && (
                         <>
-                        {data.slice(0, 4).map((libro) => (
-                            
-                            <CardProduct  
-                                libro={libro}
-                            />
-                            
-                            
-                        ))}
+                            {Libros?.map((libro) => (
+                                
+                                <CardProduct  
+                                    key={libro.id}
+                                    libro={libro}
+                                />
+                                
+                            ))}
                     
                         </>
                         

@@ -38,7 +38,7 @@ export default function CarritoView () {
                 ))} 
 
               </div>
-              <div className='border col-4 rounded bg-white px-3 align-self-start'>
+              <div className='border col-4 rounded bg-white px-3'>
                 <Resumen />
 
               </div>

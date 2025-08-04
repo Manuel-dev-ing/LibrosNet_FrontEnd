@@ -297,7 +297,7 @@
 
 /* Images */
 .imagen-sm{
-    width: 99px;
+    width: 110px;
     height: 128px;
 }
 
@@ -333,9 +333,16 @@
 .fs-9{
     font-size: 13px;
 }
+.fs-10{
+    font-size: 14px;
+}
 
 .border-gray{
     border: 1px solid #bfbfbf;
+}
+
+.bg-info-25{
+    background-color: #f1f5f9;
 }
 
 /* BUTTONS */
