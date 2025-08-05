@@ -14,6 +14,7 @@ import LibrosCreacionView from "./views/admin/libros/LibrosCreacionView";
 import LibrosEditarViewModel from "./views/admin/libros/LibrosEditarViewModel";
 import CarritoView from "./views/CarritoView";
 import CheckoutView from "./views/CheckoutView";
+import DetalleLibroView from "./views/DetalleLibroView";
 
 export default function Router() {
   
@@ -28,6 +29,7 @@ export default function Router() {
                     <Route path="/libros" element={<CatalogoView />} />
                     <Route path="/carrito" element={<CarritoView />} />
                     <Route path="/checkout" element={<CheckoutView />} />
+                    <Route path="/libro/:LibroId" element={<DetalleLibroView />} />
 
                 </Route>
 

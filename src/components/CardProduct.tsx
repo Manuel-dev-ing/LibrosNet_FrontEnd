@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { Libro } from '../types'
 import { Rating } from 'react-simple-star-rating'
 import { ShoppingCart } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 type CardProps = {
     libro: Libro
@@ -23,7 +24,7 @@ export default function CardProduct({libro} : CardProps) {
             <div className="card-body bg-white py-3 px-4">
                 <p className='text-start mt-0'><span className="badge-section-secondary">{libro.categoria}</span>
                 </p>
-                <p className="text-start fs-6 fw-bold my-0">{libro.titulo}</p>
+                <Link to={`/libro/${libro.id}`} className="text-start fs-6 fw-bold my-0 text-dark">{libro.titulo}</Link>
                 <p className="text-start text-secondary fw-semibold my-1">{libro.autor}</p>
                 <div className="text-start d-flex align-items-center gap-1">
                     <Rating 

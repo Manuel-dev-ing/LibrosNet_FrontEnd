@@ -24,6 +24,7 @@ export const useCarritoStore = create<CarritoStore>()(devtools((set, get) => ({
             const itemExist = get().carrito.findIndex( cart => cart.id === item.id)
             if (itemExist >= 0) {
                 return { isSuccess: false, mensaje: `${item.titulo} ya existe al carrito` }
+                
             }else{
 
                 set(() => ({

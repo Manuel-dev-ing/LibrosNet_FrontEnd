@@ -37,7 +37,7 @@ const editorialSchema = z.object({
 
 
 // Libros
-const libroShema = z.object({
+export const libroShema = z.object({
   id: z.number(),
   autor: z.string(),
   categoria: z.string(),
