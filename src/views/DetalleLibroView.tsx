@@ -1,18 +1,19 @@
 import { useQuery } from '@tanstack/react-query'
-import { ArrowLeft, MessageCircle, Minus, Plus, RotateCcw, Send, Shield, ShoppingCart, Truck } from 'lucide-react'
-import React, { useState } from 'react'
+import { ArrowLeft, Minus, Plus, RotateCcw, Shield, ShoppingCart, Truck } from 'lucide-react'
+import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Rating } from 'react-simple-star-rating'
 import { getDetailBook } from '../services/LibrosAPI'
-import type { Item, Libro } from '../types'
-import { useLibrosStore } from '../store'
+import type { Item } from '../types'
 import { useCarritoStore } from '../storeCarrito'
 import { toast } from 'react-toastify'
+import Comentarios from '../components/Comentarios'
+
 
 export default function DetalleLibroView() {
     const [counter, setCounter] = useState(1)
-    
     const [rating, setRating] = useState(3)
+
 
     const guardar = useCarritoStore((state) => state.guardar)
     
@@ -148,30 +149,9 @@ export default function DetalleLibroView() {
                 </div>
             </div>
 
-            <div className='mb-3 mt-5'>
-                <div className='d-flex align-items-center gap-2'>
-                    <MessageCircle strokeWidth={2} />
-                    <h4 className='fw-bold'>Comentarios</h4>
-                    <p className='text-start m-0'>
-                        <span className="badge-section-secondary fs-9 text-dark">5</span>
-                    </p>
-                </div>
-                <div className='border py-4 px-4 rounded mt-3'>
-                    <p className='fw-semibold'>Añade un comentario</p>
-                    <div className='d-flex flex-column'>
-                        <label className='fw-semibold' htmlFor="">Tu comentario:</label>
-                        <textarea className='rounded border border-secondary border-opacity-50' rows={3} name="" id="" placeholder='Comparte tu opinion sobre este libro...'></textarea>
-
-                        <button className='mt-3 w-25 btn btn-dark d-flex justify-content-center align-items-center gap-2'>
-                            <Send size={20} strokeWidth={1.25} /> 
-                            Publicar comentario
-                        </button>
-
-                    </div>
-                
-                </div>
-
-            </div>
+            <Comentarios 
+                libroId={libroId}
+            />
 
         </div>
     

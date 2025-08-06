@@ -101,6 +101,19 @@ export const obtenerLibro = z.object({
     sipnosis: z.string(),
 })
 
+// Comentarios
+
+const comentarioShema = z.object({
+  id: z.number(),
+  titulo: z.string(),
+  calificacion: z.number(),
+  cuerpo: z.string(),
+  fechaPublicacion: z.string()
+
+})
+
+export const comentariosShema = z.array(comentarioShema)
+
 export const autorsShema = z.array(autorShema);
 
 export const categoriasShema = z.array(categoriaSchema);
@@ -128,6 +141,9 @@ export type LibroEdicionFormData = z.infer<typeof libroEdicionSchema> //no inclu
 
 export type Libros = z.infer<typeof librosSchema>
 export type Item = z.infer<typeof itemSchema>
+
+export type Comentarios = z.infer<typeof comentarioShema>
+export type ComentarioFormDara = Pick<Comentarios, 'titulo' | 'cuerpo' | 'calificacion'>
 
 export type Alerta = {
   isSuccess: boolean
