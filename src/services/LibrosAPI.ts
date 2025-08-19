@@ -1,17 +1,19 @@
 import { isAxiosError } from "axios";
 import api from "../lib/axios";
-import { libroShema, librosSchema, obtenerLibro, type LibroEdicionFormData, type LibroFormData } from "../types";
+import { libroShema, librosSchema, obtenerLibro, type Calificacion, type CalificacionFormData, type LibroEdicionFormData, type LibroFormData } from "../types";
 
 type LibroAPI = {
     formData : LibroFormData | LibroEdicionFormData
     id : number
+
 }
 
 export async function getBooks() {
     try {
         const {data} = await api('/libros');
         const response = librosSchema.safeParse(data);
-
+        console.log(response);
+        
         if (response.success) {
             return response.data
         }
@@ -42,11 +44,13 @@ export async function getBook(id : number) {
         }
     }
 }
+
 export async function getDetailBook(id : number) {
     try {
 
         const {data} = await api.get(`/libros/detalle/${id}`);
         const response = libroShema.safeParse(data);
+        console.log(response);
         
         if (response.success) {
 
@@ -76,7 +80,6 @@ export async function createBook(formData : LibroFormData) {
         }
     }
 }
-
 
 export async function updateBook({id, formData} : Pick<LibroAPI, 'id' | 'formData' > ) {
     try {
@@ -114,5 +117,24 @@ export async function deleteBook(id : number) {
         }
     }
 }
+
+export async function createCalificacion(calificacion: CalificacionFormData) {
+    
+    console.log(calificacion);
+    
+    try {
+        
+        const response = await api.post(`/calificacion`, calificacion);
+        console.log(response);
+                    
+        
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+
+}
+
 
 

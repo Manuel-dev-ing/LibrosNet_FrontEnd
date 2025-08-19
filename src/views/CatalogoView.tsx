@@ -37,7 +37,7 @@ export default function CatalogoView() {
             // Mayor a menor
             ordenado.sort((a, b) => b.precio - a.precio);
         }
-        console.log(ordenado);
+        // console.log(ordenado);
         
         setLibros(ordenado)
         console.log("fin useEFFECT...");

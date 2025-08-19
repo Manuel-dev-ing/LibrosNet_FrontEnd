@@ -1,10 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ArrowLeft, Minus, Plus, RotateCcw, Shield, ShoppingCart, Truck } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Rating } from 'react-simple-star-rating'
-import { getDetailBook } from '../services/LibrosAPI'
-import type { Item } from '../types'
+import { createCalificacion, getDetailBook } from '../services/LibrosAPI'
+import type { CalificacionFormData, Item } from '../types'
 import { useCarritoStore } from '../storeCarrito'
 import { toast } from 'react-toastify'
 import Comentarios from '../components/Comentarios'
@@ -12,10 +12,12 @@ import Comentarios from '../components/Comentarios'
 
 export default function DetalleLibroView() {
     const [counter, setCounter] = useState(1)
-    const [rating, setRating] = useState(3)
-
+    const [rating, setRating] = useState<number>()
+    const [porcentaje, setPorcentaje] = useState(21/100)
 
     const guardar = useCarritoStore((state) => state.guardar)
+    
+    
     
     const params = useParams()
     const libroId = Number(params.LibroId)!
@@ -26,11 +28,29 @@ export default function DetalleLibroView() {
         queryKey: ['detailBook', libroId],
         retry: false
     })
+    const mutation = useMutation({
+        mutationFn: createCalificacion,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: () => {
+            toast.success("Calificacion exitosa")
+        }
+
+    })
+
+    const resultado = useMemo(() => data?.precio! - (data?.precio! * porcentaje),[data])
+    console.log(resultado.toFixed(2));
     
+
     // Catch Rating value
-    const handleRating = (rate: number) => {
+    const handleRating = (rate: number, id: number) => {
         setRating(rate)
-        console.log("rating: ", rate);
+        console.log("rating: ", rating);
+        console.log("Id rating: ", id);
+        const calificacion: CalificacionFormData = {cantidad: rate, id_libro: id} 
+
+        mutation.mutate(calificacion)
     }
 
     const handleClickMinus = () => {
@@ -67,7 +87,7 @@ export default function DetalleLibroView() {
     <>
         <div className='container-fluid bg-white'>
             <div className='my-4'>
-                <Link className='text-decoration-none fw-semibold text-dark d-flex align-items-center gap-2' to={'/carrito'}><ArrowLeft size={19} />  Volver al carrito</Link>
+                <Link className='text-decoration-none fw-semibold text-dark d-flex align-items-center gap-2' to={'/libros'}><ArrowLeft size={19} />  Volver al carrito</Link>
 
             </div>
             <div className='d-flex justify-content-center'>
@@ -86,16 +106,16 @@ export default function DetalleLibroView() {
                     <p className='text-secondary fs-5'>por {data.autor}</p>
                     <div className="text-start d-flex align-items-center gap-1">
                         <Rating 
-                            onClick={handleRating}
-                            initialValue={rating}
+                            onClick={(rate) => handleRating(rate, data.id)}
+                            initialValue={data.calificacion == null ? 0 : data.calificacion}
                             size={25}
                             allowFraction
                             transition
-                        /> <span className="text-secondary">({rating})</span>
+                        /> <span className="text-secondary">({data.calificacion == null ? 0 : data.calificacion})</span>
                     </div>
                     <div className='d-flex align-items-center gap-2'>
-                        <p className='m-0 fs-3 fw-bold'>${data.precio}</p>
-                        <p className='m-0 fs-5 text-decoration-line-through'>$23.99</p>
+                        <p className='m-0 fs-3 fw-bold'>${resultado.toFixed(2)}</p>
+                        <p className='m-0 fs-5 text-decoration-line-through'>${data.precio}</p>
                         <p className='m-0 badge badge text-bg-danger rounded-5'>21% OFF</p>
                     </div>
                     <p className='m-0 text-secondary'>Precio incluye impuestos</p>
