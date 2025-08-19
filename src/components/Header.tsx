@@ -1,10 +1,53 @@
 import { Link } from "react-router-dom";
 import { useCarritoStore } from "../storeCarrito";
+import type { UsuarioAutenticado } from "../types";
+import { use, useEffect, useState } from "react";
+import { useLibrosStore } from "../store";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUser } from "../services/UsuariosAPI";
+
+
+
 
 export default function Header() {
-    const cantidadItems = useCarritoStore((state) => state.carrito)
 
-  return (
+    const [open, setOpen] = useState(false);
+    const cantidadItems = useCarritoStore((state) => state.carrito)
+    const usuarioAutenticado = useLibrosStore((state) => state.usuarioAutenticado)
+    const resetUsuarioAuetenticado = useLibrosStore((state) => state.resetUsuarioAuetenticado)
+    const setUsuarioAutenticado = useLibrosStore((state) => state.setUsuarioAutenticado)
+        
+    const queryClient = useQueryClient()
+    const { data } = useQuery({
+        queryKey: ['user'],
+        queryFn: getUser,
+        retry: 1,
+        refetchOnWindowFocus: false
+    })
+
+    useEffect(() => {
+        console.log("useEffect...");
+        
+        if (data !== undefined) {
+            const usuarioData = {...data}
+            console.log(usuarioData);
+            setUsuarioAutenticado(usuarioData)
+            return
+        }
+
+    }, [data])
+   
+    
+    const handleCerrarSesion = () => {
+        
+        resetUsuarioAuetenticado()
+        console.log(usuarioAutenticado);
+        queryClient.removeQueries({queryKey: ['user']})
+        console.log("Cerrando Sesion...");
+        
+    }
+
+    return (
         <header className="">
             <nav className="navbar navbar-expand-lg bg-white shadow-sm">
                 <div className="container-fluid">
@@ -37,7 +80,29 @@ export default function Header() {
                                     {cantidadItems.length}
                                 </span>
                             </Link>
-                            <button className="rounded-4 btn text-white rounded btn-gradient min-width-8" type="submit">Iniciar Sesion</button>
+
+                            {usuarioAutenticado.auth ? (
+                                <>
+                                    <div className="dropdown">
+                                            
+                                        <a className="dropdown-toggle dropdown-enlace text-decoration-none text-dark fw-medium text-capitalize" onClick={() => setOpen(!open)}>
+                                            Hola, {usuarioAutenticado.nombre}
+                                        </a>
+                                        <ul className={`dropdown-menu ${open ? 'show' : ''}`}>
+                                            <li><a className="dropdown-item" href="#">Action</a></li>
+                                            <li><a className="dropdown-item" href="#">Another action</a></li>
+                                            <li><a className="dropdown-item cusror-pointer" onClick={handleCerrarSesion}>Cerrar Sesion</a></li>
+                                        </ul>
+                                        
+                                    </div>
+                                </>
+                            ): (
+                                <>
+                                    <Link className="rounded-4 btn text-white rounded btn-gradient min-width-8" to={'/auth/login'}>
+                                        Iniciar Sesion
+                                    </Link>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>
