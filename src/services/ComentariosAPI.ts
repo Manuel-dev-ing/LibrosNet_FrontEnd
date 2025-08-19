@@ -25,6 +25,9 @@ export async function getComments(libroId: number) {
 }
 
 export async function createComment({form, libroId}: Pick<ComentarioAPI, 'form' | 'libroId'>) {
+    
+    
+    
     try {
         const {data} = await api.post(`/libros/${libroId}/Comentarios`, form);
         console.log(data);

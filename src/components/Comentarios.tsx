@@ -5,18 +5,22 @@ import { createComment, getComments } from '../services/ComentariosAPI'
 import { toast } from 'react-toastify'
 import type { ComentarioFormDara } from '../types'
 import { Rating } from 'react-simple-star-rating'
+import { useLibrosStore } from '../store'
+import { CustomDate } from '../helpers/fecha'
 
 type ComentariosProps = {
     libroId: number
 }
 
 const initialValues: ComentarioFormDara = {
+    id_usuario: 0,
     titulo: "",
     calificacion: 0,
     cuerpo: ""
 }
 
 export default function Comentarios({libroId}: ComentariosProps) {
+    const usuarioAutenticado = useLibrosStore((state) => state.usuarioAutenticado)
     const [isDisabled, setDisabled] = useState<boolean>(true)
     const [rating, setRating] = useState(0)
     
@@ -27,6 +31,8 @@ export default function Comentarios({libroId}: ComentariosProps) {
         queryKey: ['comentarios', libroId]
 
     })
+
+    const fecha = new Date()
 
     // console.log(data);
     
@@ -39,6 +45,7 @@ export default function Comentarios({libroId}: ComentariosProps) {
         onSuccess: () => {
             toast.success("Comentario Creado")
             setForm({
+                "id_usuario": 0,
                 "titulo": "",
                 "cuerpo": "",
                 "calificacion": 0
@@ -75,10 +82,17 @@ export default function Comentarios({libroId}: ComentariosProps) {
         })
         
     }
-
+    
 
     const handleClick = () => {
-        mutation.mutate({form, libroId})
+        
+        if (usuarioAutenticado.auth) {
+            form.id_usuario = usuarioAutenticado.id
+            mutation.mutate({form, libroId})
+            
+        }else{
+            toast.error("No estas autenticado, inicia sesion para publicar un comentario")
+        }
     }
 
     if (isLoading) return "Obteniendo datos..." 
@@ -130,7 +144,7 @@ export default function Comentarios({libroId}: ComentariosProps) {
                 </div>
             
             </div>
-            {data?.length && (
+            {data?.length ? (
                 <>
                     {data.map(comentario => (
                         <div key={comentario.id} className='border py-3 px-4 rounded mt-3'>
@@ -144,12 +158,15 @@ export default function Comentarios({libroId}: ComentariosProps) {
                                 />
                             </div>
                             <p className='fw-normal m-0 fw-medium'>{comentario.titulo}</p>
-                            <p className='fw-normal m-0 fs-9'>Enviado <span className='fw-medium'>{comentario.fechaPublicacion}</span> por <span className='fw-medium'>Marytere Casillas</span></p>
+                            <p className='fw-normal m-0 fs-9'>Enviado <span className='fw-medium'>{CustomDate(comentario.fechaPublicacion)}</span> por <span className='fw-medium'>{comentario.creado_por}</span></p>
                             <p className='fw-normal m-0'>{comentario.cuerpo}</p>
                         </div>
 
                     ))}
                 
+                </>
+            ): (
+                <>
                 </>
             )}
             
