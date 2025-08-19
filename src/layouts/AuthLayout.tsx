@@ -1,20 +1,10 @@
-import { Outlet} from "react-router-dom";
-import Header from "../components/Header";
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
-import { ToastContainer } from "react-toastify";
-
-
-export default function AppLayout() {
-
-
-
-
+export default function AuthLayout() {
   return (
     <>
-        <Header 
-       
-        />
-
         <div className="container-fluid backg-white-100 border">
             <Outlet />
         </div>
@@ -23,7 +13,7 @@ export default function AppLayout() {
           pauseOnHover={false}
           pauseOnFocusLoss={false}
         />
+    
     </>
-        
   )
 }

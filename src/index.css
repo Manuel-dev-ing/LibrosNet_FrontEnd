@@ -157,6 +157,40 @@
     padding: 5px;
 }
 
+/* LOGIN */
+.input-container{
+    position: relative;
+    display: inline-block;
+}
+.icono {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Ajusta según sea necesario */
+  transform: translateY(-50%);
+  color: #aaa; /* Color del icono */
+}
+
+.enlace{
+    text-decoration: none;
+}
+
+.enlace:hover{
+    text-decoration: underline;
+}
+
+/* DropDown */
+.dropdown-menu {
+  position: absolute;
+  left: -88px;          /* Se ancla al borde izquierdo */
+  right: auto;      /* Evita que se estire hacia la derecha */
+  transform: none;  /* Elimina transformaciones que lo desplacen */
+  max-width: 100vw; /* Nunca más ancho que la pantalla */
+  overflow-x: auto; /* Si aun así el contenido es grande, scroll horizontal */
+}
+
+.dropdown-enlace:hover{
+    cursor: pointer;
+}
 
 
 /* UTILIDADES */
@@ -172,12 +206,22 @@
     min-width: 8rem;
 }
 
+
 .w-24{
     width: 24px;
 }
+
 /* 110px */
 .w-11{
     width: 115px;
+}
+/* 195px */
+.w-18{
+    width: 183px;
+}
+/* 280px */
+.w-28{
+    width: 280px;
 }
 
 /* 305px */
@@ -194,6 +238,12 @@
 .w-40{
     width: 418px;
 }
+
+/* 448px */
+.w-48{
+    width: 448px;
+}
+
 
 .w-44{
     width: 448px;
@@ -233,6 +283,15 @@
     margin-top: 6rem;
 }
 
+/* PADDING */
+.ptb-1{
+    padding: 6px 12px;
+}
+
+.pl-3{
+    padding-left: 40px;
+}
+
 /* .bd-placeholder-img {
     object-fit: cover;
     height: 537px;
@@ -242,7 +301,9 @@
     object-fit: cover;
 }
 
-
+.cusror-pointer{
+    cursor: pointer;
+}
 
 
 /* font size */

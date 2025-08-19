@@ -51,7 +51,8 @@ export const libroShema = z.object({
   numeroPaginas: z.number(),
   idioma: z.string(),
   sipnosis: z.string(),
-  estado: z.boolean()
+  estado: z.boolean(),
+  calificacion: z.number().nullable()
 })
 
 export const libroCreacionSchema = z.object({
@@ -105,12 +106,55 @@ export const obtenerLibro = z.object({
 
 const comentarioShema = z.object({
   id: z.number(),
+  id_usuario: z.number(),
+  creado_por: z.string(),
   titulo: z.string(),
   calificacion: z.number(),
   cuerpo: z.string(),
   fechaPublicacion: z.string()
 
 })
+
+/* Auth and Users */ 
+const authSchema = z.object({
+    idRol: z.number(),
+    nombre: z.string(),
+    primerApellido: z.string(),
+    segundoApellido: z.string(),
+    correo: z.string(),
+    current_password: z.string(),
+    contrasena: z.string(),
+    repetirContrasena: z.string(),
+    token: z.string() 
+});
+
+export const userAuthenticateShema = z.object({
+  id: z.number(),
+  rol: z.string(),
+  nombre: z.string(),
+  email: z.string(),
+  auth: z.boolean()
+
+})
+
+export const respuestaAutenticacion = z.object({
+  token: z.string(),
+  expiracion: z.string()
+
+});
+
+// Calificaciones
+export const calificacionShema = z.object({
+  id: z.number(),
+  id_libro: z.number(),
+  cantidad: z.number(),
+  fecha: z.string()
+})
+
+type Auth = z.infer<typeof authSchema>
+
+export type UserLoginForm = Pick<Auth, 'correo' | 'contrasena'>
+export type UserRegistrationForm = Pick<Auth, 'idRol' | 'nombre' | 'primerApellido' | 'segundoApellido' | 'correo' | 'contrasena' | 'repetirContrasena'>
 
 export const comentariosShema = z.array(comentarioShema)
 
@@ -143,11 +187,49 @@ export type Libros = z.infer<typeof librosSchema>
 export type Item = z.infer<typeof itemSchema>
 
 export type Comentarios = z.infer<typeof comentarioShema>
-export type ComentarioFormDara = Pick<Comentarios, 'titulo' | 'cuerpo' | 'calificacion'>
+export type ComentarioFormDara = Pick<Comentarios, 'id_usuario' | 'titulo' | 'cuerpo' | 'calificacion'>
+
+export type UsuarioAutenticado = z.infer<typeof userAuthenticateShema>
+
+export type Calificacion = z.infer<typeof calificacionShema>
+export type CalificacionFormData = Pick<Calificacion, 'cantidad' | 'id_libro'>
+
+
 
 export type Alerta = {
   isSuccess: boolean
   mensaje: string
 }
+
+export type ClienteTarjeta = {
+  nombre: string
+  apellido: string
+  email: string
+  direccion: string
+  ciudad: string
+  codigoPostal: string
+  pais: string
+  nombreTarjeta: string
+  numeroTarjeta: string
+  fechaVencimiento: string
+  cvv: string
+}
+
+export type Pedido = {
+  data: ClienteTarjeta
+  libros_arr : Item[]
+}
+
+// nombre: "",
+//     apellido: "",
+//     email: "",
+//     direccion: "",
+//     ciudad: "",
+//     codigoPostal: "",
+//     pais: "",
+//     nombreTarjeta: "",
+//     numeroTarjeta: "",
+//     fechaVencimiento: "",
+//     cvv: ""
 
 
