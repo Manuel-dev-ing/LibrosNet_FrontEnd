@@ -55,52 +55,54 @@ export default function EditorialesView() {
             </nav>
 
             <a className='btn btn-outline-primary btn-sm mb-4 mt-3' data-bs-toggle="modal" data-bs-target="#modalEditorial"> Nueva Editorial</a>
+            <div className="table-responsive">
 
-            <table className="table table-hover table-responsive mb-5 border ">
-                <thead className='custom-thead text-white'>
-                <tr>
-                    <th></th>
-                    <th className="text-white fw-semibold">Nombre</th>
-                    <th className="text-white fw-semibold">Correo</th>
-                    <th className="text-white fw-semibold">Telefono</th>
-                    <th className="text-white fw-semibold">Calle</th>
-                    <th className="text-white fw-semibold">Numero</th>
-                    <th className="text-white fw-semibold">Colonia</th>
-                    <th className="text-white fw-semibold">Ciudad</th>
-                    <th className="text-white fw-semibold">Acciones</th>
-                </tr>
-                </thead>
-                <tbody className='cabecera-tabla'>
-                {data.length ? (
-                    data.map((editorial) => (
-                    <tr key={editorial.id}>
-                        <td>{editorial.id}</td>
-                        <td>{editorial.nombre}</td>
-                        <td>{editorial.correo}</td>
-                        <td>{editorial.telefono}</td>
-                        <td>{editorial.calle}</td>
-                        <td>{editorial.numero}</td>
-                        <td>{editorial.colonia}</td>
-                        <td>{editorial.ciudad}</td>
-                        <td>
-                        <div className='d-flex gap-3'>
-                            <a data-bs-toggle="modal" data-bs-target="#editarmodalEditorial" title='Editar Autor'> 
-                            <SquarePen size={20} color={'#1f2937'} onClick={() => handleClickUpdate(editorial)} />
-
-                            </a>
-                            <a title='Eliminar Autor' onClick={() => handleClickDelete(editorial.id)}>
-                            <Trash2 size={20} color={'#dc3545'} />
-
-                            </a>
-                        </div>
-                        </td>
+                <table className="table align-middle table-hover table-sm mb-5 border ">
+                    <thead className='custom-thead text-white'>
+                    <tr>
+                        <th></th>
+                        <th className="text-white fw-semibold">Nombre</th>
+                        <th className="text-white fw-semibold">Correo</th>
+                        <th className="text-white fw-semibold">Telefono</th>
+                        <th className="text-white fw-semibold">Calle</th>
+                        <th className="text-white fw-semibold">Numero</th>
+                        <th className="text-white fw-semibold">Colonia</th>
+                        <th className="text-white fw-semibold">Ciudad</th>
+                        <th className="text-white fw-semibold">Acciones</th>
                     </tr>
-                    ))
-                ): (
-                    <p className="text-center py-20">No hay Autores aun</p>
-                )}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className='cabecera-tabla'>
+                    {data.length ? (
+                        data.map((editorial) => (
+                        <tr key={editorial.id}>
+                            <td>{editorial.id}</td>
+                            <td>{editorial.nombre}</td>
+                            <td>{editorial.correo}</td>
+                            <td>{editorial.telefono}</td>
+                            <td>{editorial.calle}</td>
+                            <td>{editorial.numero}</td>
+                            <td>{editorial.colonia}</td>
+                            <td>{editorial.ciudad}</td>
+                            <td>
+                            <div className='d-flex gap-3'>
+                                <a data-bs-toggle="modal" data-bs-target="#editarmodalEditorial" title='Editar Autor'> 
+                                <SquarePen size={20} color={'#1f2937'} onClick={() => handleClickUpdate(editorial)} />
+
+                                </a>
+                                <a title='Eliminar Autor' onClick={() => handleClickDelete(editorial.id)}>
+                                <Trash2 size={20} color={'#dc3545'} />
+
+                                </a>
+                            </div>
+                            </td>
+                        </tr>
+                        ))
+                    ): (
+                        <p className="text-center py-20">No hay Autores aun</p>
+                    )}
+                    </tbody>
+                </table>
+            </div>
 
             <AddEditorialModal />    
             <EditEditorialModal />    

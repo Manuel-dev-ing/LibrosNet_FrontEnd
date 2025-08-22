@@ -21,6 +21,7 @@ const libro : Libro = {
     numeroPaginas: 0,
     idioma: '',
     sipnosis: '',
+    calificacion: 0,
     estado: true
 }
 
@@ -81,48 +82,50 @@ export default function LibrosView() {
         </nav>
 
         <Link to={'/administracion/libros/crear'} className='btn btn-outline-primary btn-sm mb-4 mt-3'>Nuevo Libro</Link>
-
-        <table className="table table-hover table-responsive mb-5 border ">
-            <thead className='custom-thead text-white'>
-            <tr>
-                <th></th>
-                <th className="text-white fw-semibold">Autor</th>
-                <th className="text-white fw-semibold">Categoria</th>
-                <th className="text-white fw-semibold">Editorial</th>
-                <th className="text-white fw-semibold">Libro</th>
-                <th className="text-white fw-semibold">Precio</th>
-                <th className="text-white fw-semibold">Acciones</th>
-            </tr>
-            </thead>
-            <tbody className='cabecera-tabla'>
-            {data.length ? (
-                data.map((libro) => (
-                <tr key={libro.id}>
-                    <td>{libro.id}</td>
-                    <td>{libro.autor}</td>
-                    <td>{libro.categoria}</td>
-                    <td>{libro.editorial}</td>
-                    <td>{libro.titulo}</td>
-                    <td>{libro.precio}</td>
-                    <td>
-                        <div className='d-flex gap-3'>
-                            <a title='Editar Autor' onClick={() => handleClickUpdate(libro)}> 
-                                <SquarePen size={20} color={'#1f2937'}  />
-
-                            </a>
-                            <a title='Eliminar Autor' onClick={() => handleClickDelete(libro.id)}>
-                                <Trash2 size={20} color={'#dc3545'} />
-
-                            </a>
-                        </div>
-                    </td>
+        <div className="table-responsive">
+            <table className=" table align-middle table-hover table-sm mb-5 border">
+                <thead className='custom-thead text-white'>
+                <tr>
+                    <th></th>
+                    <th className="text-white fw-semibold">Autor</th>
+                    <th className="text-white fw-semibold">Categoria</th>
+                    <th className="text-white fw-semibold">Editorial</th>
+                    <th className="text-white fw-semibold">Libro</th>
+                    <th className="text-white fw-semibold">Precio</th>
+                    <th className="text-white fw-semibold">Acciones</th>
                 </tr>
-                ))
-            ): (
-                <p className="text-center py-20">No hay Autores aun</p>
-            )}
-            </tbody>
-        </table>
+                </thead>
+                <tbody className='cabecera-tabla'>
+                {data.length ? (
+                    data.map((libro) => (
+                    <tr key={libro.id}>
+                        <td>{libro.id}</td>
+                        <td>{libro.autor}</td>
+                        <td>{libro.categoria}</td>
+                        <td>{libro.editorial}</td>
+                        <td>{libro.titulo}</td>
+                        <td>{libro.precio}</td>
+                        <td>
+                            <div className='d-flex gap-3'>
+                                <a title='Editar Autor' onClick={() => handleClickUpdate(libro)}> 
+                                    <SquarePen size={20} color={'#1f2937'}  />
+
+                                </a>
+                                <a title='Eliminar Autor' onClick={() => handleClickDelete(libro.id)}>
+                                    <Trash2 size={20} color={'#dc3545'} />
+
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    ))
+                ): (
+                    <p className="text-center py-20">No hay Autores aun</p>
+                )}
+                </tbody>
+            </table>
+
+        </div>
     
     
     

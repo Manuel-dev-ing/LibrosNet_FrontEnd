@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 export default function AdminLayout() {
     return (
         <>
-            <div className="backg-white-100 ">
+            <div className="">
                 
                 <nav className="navbar fixed-top shadow bg-white">
                     <div className="container-fluid ps-3 pe-4 d-flex border justify-content-beetwen">
@@ -25,8 +25,8 @@ export default function AdminLayout() {
                         </div>
                     </div>
                 </nav>
-                <main className="d-flex">
-                    <div className="bg-white shadow w-30 d-flex flex-column p-3">
+                <main className="">
+                    <div className="position-fixed top-0 start-0 bg-white shadow w-30 h-100 d-flex flex-column p-3">
                        
                         <ul className="nav flex-column mb-auto">
                             <Link to={'/administracion/autores'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 mt-5 d-flex gap-3 align-items-center">
@@ -64,7 +64,7 @@ export default function AdminLayout() {
                         </ul>
                       
                     </div>
-                    <section className="height-100 container ms-5 mt-10">
+                    <section className="height-100  ms-50 mt-10">
                         <Outlet />
 
                     </section>
