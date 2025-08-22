@@ -40,7 +40,7 @@ export const useLibrosStore = create<LibrosStore>()(devtools((set, get) => ({
         }))
     },
     setUsuarioAutenticado: (data) => {
-        console.log("setUsuarioAutenticado...");
+    
 
         set(() => ({
             usuarioAutenticado: data

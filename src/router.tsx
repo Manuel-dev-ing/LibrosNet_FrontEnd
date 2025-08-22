@@ -18,6 +18,7 @@ import DetalleLibroView from "./views/DetalleLibroView";
 import LoginView from "./views/auth/LoginView";
 import RegisterView from "./views/auth/RegisterView";
 import AuthLayout from "./layouts/AuthLayout";
+import DetalleCategoriaView from "./views/DetalleCategoriaView";
 
 export default function Router() {
   
@@ -33,6 +34,7 @@ export default function Router() {
                     <Route path="/carrito" element={<CarritoView />} />
                     <Route path="/checkout" element={<CheckoutView />} />
                     <Route path="/libro/:LibroId" element={<DetalleLibroView />} />
+                    <Route path="/categorias/:CategoriaId" element={<DetalleCategoriaView />} />
                 </Route>
 
                 <Route element={<AuthLayout />}>

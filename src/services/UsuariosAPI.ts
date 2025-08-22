@@ -22,12 +22,12 @@ export async function createUser(formData: UserRegistrationForm) {
 
 export async function authenticateUser(formData: UserLoginForm) {
 
-    console.log(formData);
+
     
     try {
         const {data} = await api.post('/usuarios/login', formData);
         // const response = respuestaAutenticacion.safeParse(data)
-        console.log(data);
+     
         localStorage.setItem('auth_token', data.token)
 
 
@@ -42,7 +42,6 @@ export async function getUser() {
     try {
         const {data} = await api('/usuarios/usuario');
         const response = userAuthenticateShema.safeParse(data)
-        console.log(response);
         if (response.success) {
             return response.data
         }

@@ -12,7 +12,7 @@ export async function getBooks() {
     try {
         const {data} = await api('/libros');
         const response = librosSchema.safeParse(data);
-        console.log(response);
+        
         
         if (response.success) {
             return response.data

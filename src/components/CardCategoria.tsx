@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
-import React from 'react'
 import type { Categoria } from '../types'
+import { Link } from 'react-router-dom'
 
 type CardCategoriaProps = {
   categoria: Categoria,
@@ -8,8 +8,6 @@ type CardCategoriaProps = {
 }
 
 export default function CardCategoria({categoria, overlayStyle} : CardCategoriaProps) {
-
-  
 
   return (
     <div className="card shadow w-40 rounded-top-4">
@@ -32,7 +30,7 @@ export default function CardCategoria({categoria, overlayStyle} : CardCategoriaP
             
             <p className="text-start fs-6 my-3">{categoria.descripcion}</p>
 
-            <button className="w-37 rounded btn-black rounded-4 d-flex justify-content-center align-items-center gap-2 fs-6">Explorar Categoria <ArrowRight size={20} /> </button>
+            <Link to={`/categorias/${categoria.id}`} className="w-37 text-decoration-none rounded btn-black rounded-4 d-flex justify-content-center align-items-center gap-2 fs-6">Explorar Categoria <ArrowRight size={20} /> </Link>
         </div>
     </div>
   )

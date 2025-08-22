@@ -19,6 +19,9 @@ export default function CatalogoView() {
         queryKey: ['libros']
     })
 
+    console.log(data);
+    
+
     const { data: categorias, isLoading: isLoadingCategorias } = useQuery({
         queryFn: getCategories,
         queryKey: ['categorias']
@@ -73,8 +76,8 @@ export default function CatalogoView() {
     }
 
     const handleClickRangoPrecio = () => {
-
-        const resultado = [...data]?.filter( item => item.precio > minimoNumero && item.precio <= maximomoNumero)
+        let ordenado = [...data as Libros]
+        const resultado = ordenado.filter( item => item.precio > minimoNumero && item.precio <= maximomoNumero)
         setLibros(resultado)
     }
 

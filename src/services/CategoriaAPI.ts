@@ -1,6 +1,6 @@
 import { isAxiosError } from "axios";
 import api from "../lib/axios";
-import { categoriasShema, type CategoryFormData } from "../types";
+import { categoriasShema, libroShema, librosSchema, obtenerLibro, type CategoryFormData } from "../types";
 
 type CategoryAPI = {
     formData: CategoryFormData
@@ -62,6 +62,26 @@ export async function deleteCategory( id : number) {
         console.log(data);
         
 
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function getBooksByCategory(id : number) {
+    try {
+
+        const {data} = await api.get(`/categoria/${id}/libros`);
+        const response = librosSchema.safeParse(data);
+        console.log(response.data);
+        
+        if (response.success) {
+
+            return response.data
+        }
+
+        
     } catch (error) {
         if (isAxiosError(error) && error.response) {
             throw new Error(error.response.data.error)

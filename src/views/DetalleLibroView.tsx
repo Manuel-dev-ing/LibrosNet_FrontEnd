@@ -17,11 +17,8 @@ export default function DetalleLibroView() {
 
     const guardar = useCarritoStore((state) => state.guardar)
     
-    
-    
     const params = useParams()
     const libroId = Number(params.LibroId)!
-    // console.log(libroId);
 
     const {data, isLoading} = useQuery({
         queryFn: () => getDetailBook(libroId),
