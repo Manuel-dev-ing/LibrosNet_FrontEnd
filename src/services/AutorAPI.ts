@@ -2,6 +2,8 @@ import { isAxiosError } from "axios";
 import api from "../lib/axios";
 import { autorsShema, type Autor, type AutorFormData } from "../types";
 import type { AutoPlacement } from "@popperjs/core";
+import { useLibrosStore } from "../store";
+import { number } from "zod/v4";
 
 
 type AutorAPI = {
@@ -11,11 +13,20 @@ type AutorAPI = {
 
 }
 
-export async function getAutors() {
+export async function getAutors(pagina : number, recordsPorPagina : number) {
+    
     try {
         
-        const {data} = await api('/autores');
-        const response = autorsShema.safeParse(data);
+        const responses = await api('/autores', {
+
+            params: {pagina, recordsPorPagina}
+        });
+
+        const totalRegistros = Number(responses.headers['cantidad-total-registros'])
+    
+        localStorage.setItem('totalRegistros', JSON.stringify(totalRegistros))
+        
+        const response = autorsShema.safeParse(responses.data);
 
         if (response.success) {
             return response.data as Autor[]

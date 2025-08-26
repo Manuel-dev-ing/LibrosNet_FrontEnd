@@ -151,6 +151,17 @@ export const calificacionShema = z.object({
   fecha: z.string()
 })
 
+// Pedidos
+const pedidoShema = z.object({
+  id: z.number(),
+  cliente: z.string(),
+  subtotal: z.number(),
+  impuesto: z.number(),
+  total: z.number(),
+  fecha: z.string()
+
+})
+
 type Auth = z.infer<typeof authSchema>
 
 export type UserLoginForm = Pick<Auth, 'correo' | 'contrasena'>
@@ -169,6 +180,9 @@ export const librosSchema = z.array(libroShema);
 export const itemSchema = libroShema.extend({
   cantidad: z.number()
 })
+
+export const pedidosShema = z.array(pedidoShema);
+
 
 export type Autor = z.infer<typeof autorShema>
 export type AutorFormData = Pick<Autor, 'nombre' | 'primerApellido' | 'segundoApellido' | 'telefono' | 'correo'>

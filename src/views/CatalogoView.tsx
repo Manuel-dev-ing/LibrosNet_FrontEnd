@@ -3,10 +3,13 @@ import Card from '../components/Card'
 import { useQuery } from '@tanstack/react-query';
 import { getBooks } from '../services/LibrosAPI';
 import CardProduct from '../components/CardProduct';
-import { getCategories } from '../services/CategoriaAPI';
+import { getAllCategories, getCategories } from '../services/CategoriaAPI';
 import type { Libros } from '../types';
+import Paginacion from '../components/Paginacion';
 
 export default function CatalogoView() {
+    const [recordsPorPagina, setRecordPorPagina] = useState<number>(5)
+    const [pagina, setPagina] = useState<number>(1)  
     const [Libros, setLibros] = useState<Libros>()
     const [isSelect, setIsSelect] = useState<number>(1)
     const [minimoNumero, setMinimoNumero] = useState<number>(0)
@@ -15,15 +18,15 @@ export default function CatalogoView() {
 
     
     const { data, isLoading } = useQuery({
-        queryFn: getBooks,
-        queryKey: ['libros']
+        queryFn: () => getBooks(pagina, recordsPorPagina),
+        queryKey: ['libros', pagina, recordsPorPagina]
     })
 
     console.log(data);
     
 
     const { data: categorias, isLoading: isLoadingCategorias } = useQuery({
-        queryFn: getCategories,
+        queryFn: getAllCategories,
         queryKey: ['categorias']
     })
 
@@ -172,6 +175,15 @@ export default function CatalogoView() {
                         </>
                         
                     )}
+                </div>
+
+                <div className='d-flex justify-content-center mt-4'>
+
+                    <Paginacion
+                        pagina={pagina}
+                        setPagina={setPagina}
+                        recordsPorPagina={recordsPorPagina}
+                    />
                 </div>
 
             </div>

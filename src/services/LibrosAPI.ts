@@ -8,10 +8,17 @@ type LibroAPI = {
 
 }
 
-export async function getBooks() {
+export async function getBooks(pagina : number, recordsPorPagina : number) {
     try {
-        const {data} = await api('/libros');
-        const response = librosSchema.safeParse(data);
+        const responses = await api('/libros', {
+            params: {pagina, recordsPorPagina}
+        });
+
+        const totalRegistros = Number(responses.headers['cantidad-total-registros'])
+    
+        localStorage.setItem('totalRegistros', JSON.stringify(totalRegistros))
+
+        const response = librosSchema.safeParse(responses.data);
         
         
         if (response.success) {

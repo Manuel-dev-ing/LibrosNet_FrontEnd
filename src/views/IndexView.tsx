@@ -31,7 +31,7 @@ export default function IndexView() {
   return (
     <>
       <section className="py-5 text-center border">
-        <div className="row py-lg-5">
+        <div className="row py-lg-5" id="ofertas">
           <div className="col-lg-8 col-md-8 mx-auto">
             <span className="badge-section-primary">Libros Destacados</span>
             <h1 className="fw-bold mt-4">Los Mas <span className="text-primary">Populares</span> </h1>
@@ -41,7 +41,7 @@ export default function IndexView() {
             
           </div>
         </div>
-        <div className="d-flex gap-3 container justify-content-center">
+        <div className="d-flex gap-3 container justify-content-center" >
           { data?.length && (
             <>
               {data.slice(0, 4).map((libro) => (
@@ -61,7 +61,7 @@ export default function IndexView() {
       </section>
 
       {/* seccion categorias */}
-      <section className="py-5 text-center">
+      <section className="py-5 text-center" id="categorias">
         <div className="row py-lg-5">
           <div className="col-lg-8 col-md-8 mx-auto">
             <span className="badge-section-purple">Categorias</span>

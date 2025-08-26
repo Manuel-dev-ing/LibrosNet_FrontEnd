@@ -64,11 +64,11 @@ export default function Header() {
                             </li>
                           
                             <li className="">
-                                <a className="nav-link fw-normal fs-6 text-black navbar-link" href="#">Categorias</a>
+                                <a className="nav-link fw-normal fs-6 text-black navbar-link" href="#categorias">Categorias</a>
                             </li>
 
                             <li className="">
-                                <a className="nav-link fw-normal fs-6 text-black navbar-link" href="#">Ofertas</a>
+                                <a className="nav-link fw-normal fs-6 text-black navbar-link" href="#ofertas">Ofertas</a>
                             </li>
 
                         </ul>

@@ -1,4 +1,4 @@
-import { BookCopy, Contact, LayoutGrid, Newspaper, Users } from "lucide-react";
+import { BookCopy, Contact, LayoutGrid, Newspaper, ShoppingCart, Users } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -9,7 +9,7 @@ export default function AdminLayout() {
                 
                 <nav className="navbar fixed-top shadow bg-white">
                     <div className="container-fluid ps-3 pe-4 d-flex border justify-content-beetwen">
-                        <a className="navbar-brand fw-semibold text-blue-bold" href="#">Libros Net</a>
+                        <Link to={'/administracion'} className="navbar-brand fw-semibold text-blue-bold">Libros Net</Link>
 
                         <div className="dropdown text-end">
                             <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,11 +54,10 @@ export default function AdminLayout() {
                                     Libros
                                 </p>
                             </Link>
-                            <Link to={'/administracion/libros'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 d-flex gap-3 align-items-center">
-                                <Users size={20} color="#012974" />
-
+                            <Link to={'/administracion/pedidos'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 d-flex gap-3 align-items-center">
+                                <ShoppingCart size={20} color="#012974" />
                                 <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">
-                                Usuarios
+                                    Pedidos
                                 </p>
                             </Link>
                         </ul>

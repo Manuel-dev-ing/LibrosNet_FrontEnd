@@ -8,11 +8,17 @@ type EditorialAPI = {
 }
 
 
-export async function getEditorials() {
+export async function getEditorials(pagina : number, recordsPorPagina : number) {
     try {
         
-        const {data} = await api('/editorial');
-        const response = editorialesSchema.safeParse(data)
+        const responses = await api('/editorial', {
+            params: {pagina, recordsPorPagina}
+        });
+        const totalRegistros = Number(responses.headers['cantidad-total-registros'])
+    
+        localStorage.setItem('totalRegistros', JSON.stringify(totalRegistros))
+
+        const response = editorialesSchema.safeParse(responses.data)
 
         if (response.success) {
             return response.data

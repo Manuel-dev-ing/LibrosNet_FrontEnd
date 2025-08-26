@@ -8,11 +8,36 @@ type CategoryAPI = {
 }
 
 
-export async function getCategories() {
+export async function getCategories(pagina : number, recordsPorPagina : number) {
     
     try {
-        const {data} = await api('/categoria')
-        const response = categoriasShema.safeParse(data)
+        const responses = await api('/categoria', {
+            params: {pagina, recordsPorPagina}
+        });
+
+        const totalRegistros = Number(responses.headers['cantidad-total-registros'])
+    
+        localStorage.setItem('totalRegistros', JSON.stringify(totalRegistros))
+
+        const response = categoriasShema.safeParse(responses.data)
+
+        if (response.success) {
+            return response.data
+        }
+        
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
+
+export async function getAllCategories() {
+    
+    try {
+        const responses = await api('/categoria/getAllCategories');
+
+        const response = categoriasShema.safeParse(responses.data)
 
         if (response.success) {
             return response.data
@@ -26,7 +51,7 @@ export async function getCategories() {
 }
 
 
-export async function createCategory( formData : CategoryFormData) {
+export async function createCategory(formData : CategoryFormData) {
     
     try {
         const {data} = await api.post('/categoria', formData)

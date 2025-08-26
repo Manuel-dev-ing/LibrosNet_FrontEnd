@@ -5,7 +5,8 @@ import type { Libro } from "../../types"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { useLibrosStore } from "../../store"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import Paginacion from "../../components/Paginacion"
 
 const libro : Libro = {
     id: 0,
@@ -26,7 +27,8 @@ const libro : Libro = {
 }
 
 export default function LibrosView() {
-
+    const [recordsPorPagina, setRecordPorPagina] = useState<number>(5)
+    const [pagina, setPagina] = useState<number>(1) 
     const setLibro = useLibrosStore((state) => state.set)
     const resetLibro = useLibrosStore((state) => state.reset)
 
@@ -38,8 +40,8 @@ export default function LibrosView() {
     const navigate = useNavigate();
 
     const { data, isLoading } = useQuery({
-        queryFn: getBooks,
-        queryKey: ['libros']
+        queryFn: () => getBooks(pagina, recordsPorPagina),
+        queryKey: ['libros', pagina, recordsPorPagina]
     })
 
     const mutation = useMutation({
@@ -126,8 +128,12 @@ export default function LibrosView() {
             </table>
 
         </div>
-    
-    
+        <Paginacion
+            pagina={pagina}
+            setPagina={setPagina}
+            recordsPorPagina={recordsPorPagina}
+        />       
+
     
     </>
   )

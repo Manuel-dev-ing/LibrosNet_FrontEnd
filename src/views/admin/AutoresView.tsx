@@ -6,14 +6,18 @@ import { toast } from 'react-toastify'
 import type { Autor } from '../../types'
 import { useLibrosStore } from '../../store'
 import EditAutorModal from '../../components/autors/EditAutorModal'
+import Paginacion from '../../components/Paginacion'
+import { useState } from 'react'
 
 export default function AutoresView() {
+  const [recordsPorPagina, setRecordPorPagina] = useState<number>(5)
+  const [pagina, setPagina] = useState<number>(1)  
 
   const setAutor = useLibrosStore((state) => state.set)
 
   const { data, isLoading } = useQuery({
-      queryKey: ['autors'],
-      queryFn: getAutors
+    queryKey: ['autors', pagina, recordsPorPagina],
+    queryFn: () => getAutors(pagina, recordsPorPagina)
   })
 
   const queryClient = useQueryClient()
@@ -55,7 +59,7 @@ export default function AutoresView() {
 
       <a className='btn btn-outline-primary btn-sm mb-4 mt-3' href="#" data-bs-toggle="modal" data-bs-target="#modalAutor"> Nuevo Autor</a>
 
-      <table className="table table-hover table-responsive mb-5 border ">
+      <table className="table table-hover table-responsive mb-3 border ">
         <thead className='custom-thead text-white'>
           <tr>
             <th></th>
@@ -99,8 +103,14 @@ export default function AutoresView() {
         </tbody>
       </table>
 
-       <AddAutorModal />   
-       <EditAutorModal />   
+       <Paginacion
+          pagina={pagina}
+          setPagina={setPagina}
+          recordsPorPagina={recordsPorPagina}
+        />
+
+      <AddAutorModal />   
+      <EditAutorModal />   
     </>
   )
 }

@@ -5,12 +5,14 @@ import type { Autor, AutorFormData, Categoria, CategoryFormData, editorial, Edit
 
 type LibrosStore = {
     data: AutorFormData | CategoryFormData | EditorialFormData | Libro
+    
     set: (formData: Autor | Categoria | editorial | Libro) => void
     reset: (formData: AutorFormData | CategoryFormData | Libro) => void
     activeId: number
     usuarioAutenticado: UsuarioAutenticado
     setUsuarioAutenticado: (data: UsuarioAutenticado) => void
     resetUsuarioAuetenticado: () => void
+    
 }
 
 const initialState: UsuarioAutenticado = {
@@ -53,9 +55,11 @@ export const useLibrosStore = create<LibrosStore>()(devtools((set, get) => ({
             usuarioAutenticado: initialState
         }))
         localStorage.removeItem('auth_token')
-
-    }
+    },
+   
     
+
+
 })))
 
 

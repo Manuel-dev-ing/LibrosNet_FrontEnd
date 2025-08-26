@@ -6,14 +6,19 @@ import AddCategoryModal from "../../components/admin/categories/AddCategoryModal
 import { toast } from "react-toastify"
 import EditCategoryModal from "../../components/admin/categories/EditCategoryModal"
 import { useLibrosStore } from "../../store"
+import { useState } from "react"
+import Paginacion from "../../components/Paginacion"
 
 export default function CategoriasView() {
+    const [recordsPorPagina, setRecordPorPagina] = useState<number>(5)
+    const [pagina, setPagina] = useState<number>(1)  
+
 
    const setCategory = useLibrosStore((state) => state.set)
 
     const { data, isLoading } = useQuery({
-        queryKey: ['categories'],
-        queryFn: getCategories
+        queryKey: ['categories', pagina, recordsPorPagina],
+        queryFn: () => getCategories(pagina, recordsPorPagina)
     })
 
     const queryClient = useQueryClient();
@@ -91,6 +96,11 @@ export default function CategoriasView() {
             </tbody>
         </table>
 
+            <Paginacion
+                pagina={pagina}
+                setPagina={setPagina}
+                recordsPorPagina={recordsPorPagina}
+            />
         <EditCategoryModal />   
         <AddCategoryModal />    
     </>

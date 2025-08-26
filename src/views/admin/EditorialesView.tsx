@@ -6,14 +6,17 @@ import AddEditorialModal from "../../components/admin/editoriales/AddEditorialMo
 import { toast } from "react-toastify"
 import { useLibrosStore } from "../../store"
 import EditEditorialModal from "../../components/admin/editoriales/EditEditorialModal"
+import Paginacion from "../../components/Paginacion"
+import { useState } from "react"
 
 export default function EditorialesView() {
-
+    const [recordsPorPagina, setRecordPorPagina] = useState<number>(5)
+    const [pagina, setPagina] = useState<number>(1)  
     const setEditorial = useLibrosStore( (state) => state.set)
 
     const { data, isLoading } = useQuery({
-        queryFn: getEditorials,
-        queryKey: ['editoriales']
+        queryFn:() => getEditorials(pagina, recordsPorPagina),
+        queryKey: ['editoriales', pagina, recordsPorPagina]
     })
 
     const queryClient = useQueryClient();
@@ -103,6 +106,11 @@ export default function EditorialesView() {
                     </tbody>
                 </table>
             </div>
+            <Paginacion
+                pagina={pagina}
+                setPagina={setPagina}
+                recordsPorPagina={recordsPorPagina}
+            />
 
             <AddEditorialModal />    
             <EditEditorialModal />    
