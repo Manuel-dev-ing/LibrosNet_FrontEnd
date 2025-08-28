@@ -17,6 +17,8 @@ const initialValues: LibroFormData = {
     idEditorial: '',
     titulo: '',
     precio: 0,
+    stockMinimo: 0,
+    stockMaximo: 0,
     stock: 0,
     portada: '',
     isbn: '',

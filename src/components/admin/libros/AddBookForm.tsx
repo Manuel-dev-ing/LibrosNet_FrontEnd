@@ -116,7 +116,7 @@ export default function AddBookForm({preview, errors, register, autores, categor
                             )}
                         </div>
 
-                        <div className="col-md-4">
+                        <div className="col-md-6">
                             <label htmlFor='precio' className="form-label">Precio</label>
                             <input id='precio' type="text" className="form-control" placeholder='$253' 
                                 {...register("precio", {
@@ -126,6 +126,17 @@ export default function AddBookForm({preview, errors, register, autores, categor
                             {errors && (
                                 <ErrorMessage>{errors.precio?.message}</ErrorMessage>
                             )}
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor='isbn' className="form-label">ISBN</label>
+                            <input id='isbn' className="form-control" placeholder='13456789563' 
+                                {...register("isbn", {
+                                    required: "El ISBN del libro es obligatorio",
+                                })}
+                            />
+                            {errors && (
+                                <ErrorMessage>{errors.isbn?.message}</ErrorMessage>
+                            )} 
                         </div>
                         <div className="col-md-4">
                             <label htmlFor='stock' className="form-label">Stock</label>
@@ -140,16 +151,30 @@ export default function AddBookForm({preview, errors, register, autores, categor
 
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor='isbn' className="form-label">ISBN</label>
-                            <input id='isbn' className="form-control" placeholder='13456789563' 
-                                {...register("isbn", {
-                                    required: "El ISBN del libro es obligatorio",
+                            <label htmlFor='stockMinimo' className="form-label">Stock Minimo</label>
+                            <input id='stockMinimo' type="number" min="1" className="form-control" placeholder='5' 
+                                {...register("stockMinimo", {
+                                    required: "El Stock Minimo del libro es obligatorio",
                                 })}
                             />
                             {errors && (
-                                <ErrorMessage>{errors.isbn?.message}</ErrorMessage>
-                            )} 
+                                <ErrorMessage>{errors.precio?.message}</ErrorMessage>
+                            )}  
+
                         </div>
+                        <div className="col-md-4">
+                            <label htmlFor='stockMaximo' className="form-label">Stock Maximo</label>
+                            <input id='stockMaximo' type="number" min="1" className="form-control" placeholder='5' 
+                                {...register("stockMaximo", {
+                                    required: "El Stock Maximo del libro es obligatorio",
+                                })}
+                            />
+                            {errors && (
+                                <ErrorMessage>{errors.precio?.message}</ErrorMessage>
+                            )}  
+
+                        </div>
+                        
                         <div className="col-md-6">
                             <label htmlFor='numeroPaginas' className="form-label">Numero de Paginas</label>
                             <input id='numeroPaginas' type='number' min="1" className="form-control" placeholder='233' 
@@ -175,7 +200,7 @@ export default function AddBookForm({preview, errors, register, autores, categor
                         </div>
                         <div className="col-md-12">
                             <label htmlFor='sipnosis' className="form-label">Sipnosis</label>
-                            <textarea className='form-control' id="sipnosis" rows="5" 
+                            <textarea className='form-control' id="sipnosis" rows={5} 
                             {...register("sipnosis", {
                                 required: "La Idioma del libro es obligatorio",
                             })}

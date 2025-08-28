@@ -109,7 +109,7 @@ export default function LibrosView() {
                         <td>{libro.precio}</td>
                         <td>
                             <div className='d-flex gap-3'>
-                                <a title='Editar Autor' onClick={() => handleClickUpdate(libro)}> 
+                                <a className="cusror-pointer" title='Editar Autor' onClick={() => handleClickUpdate(libro)}> 
                                     <SquarePen size={20} color={'#1f2937'}  />
 
                                 </a>

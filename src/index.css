@@ -229,6 +229,11 @@
     width: 305px;
 }
 
+/* 309px */
+.w-39{
+    width: 309px;
+}
+
 /* 370px */
 .w-37{
     width: 370px;
@@ -262,6 +267,11 @@
 /* 641px */
 .w-64{
     width: 635px;
+}
+
+/* 1021px */
+.w-102{
+    width: 1000px;
 }
 
 /* Height */
@@ -387,6 +397,15 @@
     width: 100%;
     height: 100%;
 }
+
+.backg-blue-600{
+    background-color: #f1f5f9;
+}
+
+.backg-blue-600{
+    background-color: #f1f5f9;
+}
+
 
 /* Images */
 .imagen-sm{

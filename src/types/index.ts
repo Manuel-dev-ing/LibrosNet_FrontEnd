@@ -61,6 +61,8 @@ export const libroCreacionSchema = z.object({
     idEditorial: z.string(),
     titulo: z.string(),
     precio: z.number(),
+    stockMinimo: z.number(),    
+    stockMaximo: z.number(),
     stock: z.number(),
     portada: z.string(),
     isbn: z.string(),
@@ -162,6 +164,14 @@ const pedidoShema = z.object({
 
 })
 
+//totales
+export const totalesShema = z.object({
+  totalLibros: z.number(),
+  totalClientes: z.number(),
+  ingresos: z.number()
+
+})
+
 type Auth = z.infer<typeof authSchema>
 
 export type UserLoginForm = Pick<Auth, 'correo' | 'contrasena'>
@@ -194,6 +204,7 @@ export type editorial = z.infer<typeof editorialSchema>
 export type EditorialFormData = Pick<editorial, 'nombre' | 'correo' | 'telefono' | 'calle' | 'numero' | 'colonia' | 'ciudad' | 'estado' | 'codigoPostal'>
 
 export type Libro = z.infer<typeof libroShema>
+
 export type LibroFormData = z.infer<typeof libroCreacionSchema> // incluye la portada
 export type LibroEdicionFormData = z.infer<typeof libroEdicionSchema> //no incluye la portada
 
