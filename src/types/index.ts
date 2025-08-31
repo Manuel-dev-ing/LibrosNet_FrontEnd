@@ -44,6 +44,8 @@ export const libroShema = z.object({
   editorial: z.string(),
   titulo: z.string(),
   precio: z.number(),
+  stockMinimo: z.number(),    
+  stockMaximo: z.number(),
   stock: z.number(),
   portada: z.string().nullable(),
   isbn: z.string(),
@@ -169,6 +171,15 @@ export const totalesShema = z.object({
   totalLibros: z.number(),
   totalClientes: z.number(),
   ingresos: z.number()
+
+})
+
+// data inventory
+export const dataInventoryShema = z.object({
+  totalLibros: z.number(),
+  valorTotal: z.number(),
+  bajoStock: z.number(),
+  agotado: z.number(),
 
 })
 

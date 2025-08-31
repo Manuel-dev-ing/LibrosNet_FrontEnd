@@ -76,16 +76,16 @@ export default function AdminIndexView() {
         <div className='d-flex flex-column gap-3'>
           
           {dataPedidos?.slice(0,3).sort((a,b) => b.id - a.id).map((item) => (
-            <>
-              <div key={item.id} className='border p-3 rounded-2 d-flex justify-content-between'>
-                <div>
-                  <p className='m-0 fw-semibold'>#{item.id}</p>
-                  <p className='mb-1 text-secondary fs-9 fw-semibold text-capitalize'>{item.cliente}</p>
-                  <p className='m-0 fw-semibold'>${item.total}</p>
-                </div>
-                <button className='align-self-center border rounded-1 bg-white py-1 px-3 cusror-pointer'>Ver</button>
+            
+            <div key={item.id} className='border p-3 rounded-2 d-flex justify-content-between'>
+              <div>
+                <p className='m-0 fw-semibold'>#{item.id}</p>
+                <p className='mb-1 text-secondary fs-9 fw-semibold text-capitalize'>{item.cliente}</p>
+                <p className='m-0 fw-semibold'>${item.total.toFixed(2)}</p>
               </div>
-            </>
+              <button className='align-self-center border rounded-1 bg-white py-1 px-3 cusror-pointer'>Ver</button>
+            </div>
+            
           ))}
           
 

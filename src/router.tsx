@@ -20,6 +20,7 @@ import RegisterView from "./views/auth/RegisterView";
 import AuthLayout from "./layouts/AuthLayout";
 import DetalleCategoriaView from "./views/DetalleCategoriaView";
 import PedidosView from "./views/admin/PedidosView";
+import InventarioView from "./views/admin/InventarioView";
 
 export default function Router() {
   
@@ -53,6 +54,7 @@ export default function Router() {
                     <Route path="/administracion/libros/crear" element={<LibrosCreacionView />} />
                     <Route path="/administracion/libros/editar" element={<LibrosEditarViewModel />} />
                     <Route path="/administracion/pedidos" element={<PedidosView /> } />
+                    <Route path="/administracion/inventario" element={<InventarioView /> } />
                 </Route>    
 
             </Routes>

@@ -219,6 +219,12 @@
 .w-18{
     width: 183px;
 }
+
+/*     width: 245px; */
+.w-20{
+    width: 205px;
+}
+
 /* 280px */
 .w-28{
     width: 280px;
@@ -262,6 +268,11 @@
 /* 156px */
 .w-56{
     width: 156px;
+}
+
+/* 540px */
+.w-54{
+    width: 540px;
 }
 
 /* 641px */
@@ -379,6 +390,32 @@
     color: white;
     padding: 0px 7px;
     border-radius: 11px
+}
+
+.badge-section-green{
+    background-color: #d0fae5;
+    color: #016630;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 11px
+}
+
+.badge-section-yellow{
+    background-color: #ecfcca;
+    color: #894b00;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 11px
+}
+.badge-section-red{
+    background-color: #ffedd4;
+    color: #9f2d00;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 11px
 }
 
 /* Tables */

@@ -6,9 +6,11 @@ import { totalesShema } from "../types";
 
 export async function getTotals() {
     try {
+        console.log("totales...");
+        
         const {data} = await api('/dashboard');
+        console.log(data);
         const response = totalesShema.safeParse(data)
-        console.log(response);
         
         if (response.success) {
             return response.data

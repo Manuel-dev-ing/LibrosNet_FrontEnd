@@ -1,11 +1,29 @@
 import { isAxiosError } from "axios";
 import api from "../lib/axios";
-import { libroShema, librosSchema, obtenerLibro, type Calificacion, type CalificacionFormData, type LibroEdicionFormData, type LibroFormData } from "../types";
+import { dataInventoryShema, libroShema, librosSchema, obtenerLibro, type Calificacion, type CalificacionFormData, type LibroEdicionFormData, type LibroFormData } from "../types";
 
 type LibroAPI = {
     formData : LibroFormData | LibroEdicionFormData
     id : number
 
+}
+
+
+export async function getDataInventory() {
+    try {
+        const responses = await api('/libros/inventario');
+
+        const response = dataInventoryShema.safeParse(responses.data);
+        
+        if (response.success) {
+            return response.data
+        }
+        
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
 }
 
 export async function getBooks(pagina : number, recordsPorPagina : number) {
@@ -71,7 +89,6 @@ export async function getDetailBook(id : number) {
         }
     }
 }
-
 
 export async function createBook(formData : LibroFormData) {
     try {
@@ -143,5 +160,16 @@ export async function createCalificacion(calificacion: CalificacionFormData) {
 
 }
 
-
+export async function restoreStock(id : number) {
+    try {
+        const response = await api.get(`/libros/stock/${id}`);
+        console.log(response);
+                
+        
+    } catch (error) {
+        if (isAxiosError(error) && error.response) {
+            throw new Error(error.response.data.error)
+        }
+    }
+}
 

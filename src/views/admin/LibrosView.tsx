@@ -15,6 +15,8 @@ const libro : Libro = {
     editorial: '',
     titulo: '',
     precio: 0,
+    stockMinimo: 0,
+    stockMaximo: 0,
     stock: 0,
     portada: '',
     isbn: '',
@@ -29,6 +31,7 @@ const libro : Libro = {
 export default function LibrosView() {
     const [recordsPorPagina, setRecordPorPagina] = useState<number>(5)
     const [pagina, setPagina] = useState<number>(1) 
+
     const setLibro = useLibrosStore((state) => state.set)
     const resetLibro = useLibrosStore((state) => state.reset)
 
@@ -54,7 +57,6 @@ export default function LibrosView() {
         }
 
     })
-
 
     const handleClickUpdate = (libro : Libro) => {
         setLibro(libro)

@@ -1,4 +1,4 @@
-import { BookCopy, Contact, LayoutGrid, Newspaper, ShoppingCart, Users } from "lucide-react";
+import { BookCopy, Contact, LayoutGrid, Newspaper, Package, ShoppingCart, Users } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
@@ -58,6 +58,12 @@ export default function AdminLayout() {
                                 <ShoppingCart size={20} color="#012974" />
                                 <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">
                                     Pedidos
+                                </p>
+                            </Link>
+                            <Link to={'/administracion/inventario'} className="link nav-link-sidebar text-blue-bold fw-semibold p-2 d-flex gap-3 align-items-center">
+                                <Package size={20} color="#012974" />
+                                <p className="nav-link-sidebar text-blue-bold fw-semibold m-0">
+                                    Gestionar Inventario
                                 </p>
                             </Link>
                         </ul>
