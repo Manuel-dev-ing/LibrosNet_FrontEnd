@@ -42,11 +42,7 @@ export default function Header() {
     useEffect(() => {
         console.log("use Effect usuario autenticado");
         console.log(usuarioAutenticado);
-        if (usuarioAutenticado.rol === 'usuario' && usuarioAutenticado.auth === true) {
-            console.log("redirigiendo a la pagina principal");
-            navigate('/')
-
-        }else if(usuarioAutenticado.rol === 'administrador' && usuarioAutenticado.auth === true){
+        if(usuarioAutenticado.rol === 'administrador' && usuarioAutenticado.auth === true){
             console.log("redirigiendo a la pagina administracion");
             navigate('/administracion')
 
