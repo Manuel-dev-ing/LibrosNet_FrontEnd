@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import Card from "../components/Card";
 import CardCategoria from "../components/CardCategoria";
 import { getBooks } from "../services/LibrosAPI";
-import { getCategories } from "../services/CategoriaAPI";
+import { getAllCategories, getCategories } from "../services/CategoriaAPI";
+import { useState } from "react";
 
 
 const overlayStyles : { [key: number] : string } = {
@@ -15,13 +16,16 @@ const overlayStyles : { [key: number] : string } = {
 }
 
 export default function IndexView() {
+    const [recordsPorPagina, setRecordPorPagina] = useState<number>(10)
+    const [pagina, setPagina] = useState<number>(1) 
+
     const { data, isLoading } = useQuery({
-        queryFn: getBooks,
-        queryKey: ['libros']
+        queryFn: () => getBooks(pagina, recordsPorPagina),
+        queryKey: ['libros', pagina, recordsPorPagina]
     })
 
     const { data: Categorias, isLoading: isLoadingCategorias } = useQuery({
-        queryFn: getCategories,
+        queryFn: getAllCategories,
         queryKey: ['categorias']
     })
 

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCarritoStore } from "../storeCarrito";
 import type { UsuarioAutenticado } from "../types";
 import { use, useEffect, useState } from "react";
@@ -16,7 +16,8 @@ export default function Header() {
     const usuarioAutenticado = useLibrosStore((state) => state.usuarioAutenticado)
     const resetUsuarioAuetenticado = useLibrosStore((state) => state.resetUsuarioAuetenticado)
     const setUsuarioAutenticado = useLibrosStore((state) => state.setUsuarioAutenticado)
-        
+    
+    const navigate = useNavigate();
     const queryClient = useQueryClient()
     const { data } = useQuery({
         queryKey: ['user'],
@@ -36,6 +37,23 @@ export default function Header() {
         }
 
     }, [data])
+
+
+    useEffect(() => {
+        console.log("use Effect usuario autenticado");
+        console.log(usuarioAutenticado);
+        if (usuarioAutenticado.rol === 'usuario' && usuarioAutenticado.auth === true) {
+            console.log("redirigiendo a la pagina principal");
+            navigate('/')
+
+        }else if(usuarioAutenticado.rol === 'administrador' && usuarioAutenticado.auth === true){
+            console.log("redirigiendo a la pagina administracion");
+            navigate('/administracion')
+
+        }
+
+
+    },[usuarioAutenticado])
    
     
     const handleCerrarSesion = () => {
@@ -89,8 +107,7 @@ export default function Header() {
                                             Hola, {usuarioAutenticado.nombre}
                                         </a>
                                         <ul className={`dropdown-menu ${open ? 'show' : ''}`}>
-                                            <li><a className="dropdown-item" href="#">Action</a></li>
-                                            <li><a className="dropdown-item" href="#">Another action</a></li>
+                                           
                                             <li><a className="dropdown-item cusror-pointer" onClick={handleCerrarSesion}>Cerrar Sesion</a></li>
                                         </ul>
                                         

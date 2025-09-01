@@ -1,8 +1,70 @@
 import { BookCopy, Contact, LayoutGrid, Newspaper, Package, ShoppingCart, Users } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import { useCarritoStore } from "../storeCarrito";
+import { useLibrosStore } from "../store";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getUser } from "../services/UsuariosAPI";
 
 export default function AdminLayout() {
+
+        const [open, setOpen] = useState(false);
+        const usuarioAutenticado = useLibrosStore((state) => state.usuarioAutenticado)
+        const resetUsuarioAuetenticado = useLibrosStore((state) => state.resetUsuarioAuetenticado)
+        const setUsuarioAutenticado = useLibrosStore((state) => state.setUsuarioAutenticado)
+        
+        const navigate = useNavigate();
+        const queryClient = useQueryClient()
+        const { data } = useQuery({
+            queryKey: ['user'],
+            queryFn: getUser,
+            retry: 1,
+            refetchOnWindowFocus: false
+        })
+    
+        useEffect(() => {
+            console.log("useEffect...");
+            
+            if (data !== undefined) {
+                const usuarioData = {...data}
+                console.log(usuarioData);
+                setUsuarioAutenticado(usuarioData)
+                return
+            }
+    
+        }, [data])
+    
+    
+        useEffect(() => {
+            console.log("use Effect usuario autenticado");
+            console.log(usuarioAutenticado);
+            if (usuarioAutenticado.rol === 'usuario' && usuarioAutenticado.auth === true) {
+                console.log("redirigiendo a la pagina principal");
+                navigate('/')
+    
+            }else if(usuarioAutenticado.rol === 'administrador' && usuarioAutenticado.auth === true){
+                console.log("redirigiendo a la pagina administracion");
+                navigate('/administracion')
+    
+            }else{
+                navigate('/')
+            }
+    
+    
+        },[usuarioAutenticado])
+       
+        
+        const handleCerrarSesion = () => {
+            
+            resetUsuarioAuetenticado()
+            console.log(usuarioAutenticado);
+            queryClient.removeQueries({queryKey: ['user']})
+            navigate('/')
+            console.log("Cerrando Sesion...");
+            
+        }
+
     return (
         <>
             <div className="">
@@ -12,16 +74,15 @@ export default function AdminLayout() {
                         <Link to={'/administracion'} className="navbar-brand fw-semibold text-blue-bold">Libros Net</Link>
 
                         <div className="dropdown text-end">
-                            <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Nombre usuario
+                                
+                            <a className="dropdown-toggle dropdown-enlace text-decoration-none text-dark fw-medium text-capitalize" onClick={() => setOpen(!open)}>
+                                Hola, {usuarioAutenticado.nombre}
                             </a>
-                            <ul className="dropdown-menu text-small">
-                                <li><a className="dropdown-item" href="#">New project...</a></li>
-                                <li><a className="dropdown-item" href="#">Settings</a></li>
-                                <li><a className="dropdown-item" href="#">Profile</a></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item" href="#">Sign out</a></li>
+                            <ul className={`dropdown-menu ${open ? 'show' : ''}`}>
+                                
+                                <li><a className="dropdown-item cusror-pointer" onClick={handleCerrarSesion}>Cerrar Sesion</a></li>
                             </ul>
+                            
                         </div>
                     </div>
                 </nav>
